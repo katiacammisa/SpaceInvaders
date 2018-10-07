@@ -2,14 +2,18 @@ package edu.austral.prog2_2018c2;
 
 import javax.swing.ImageIcon;
 
-public class Alien extends Sprite {
+public abstract class Alien extends Sprite {
 
     private Bomb bomb;
     private final String alienImg = "src/images/alien.png";
+    private int life;
+    private int points;
 
-    public Alien(int x, int y) {
+    public Alien(int x, int y, int life, int points) {
 
         initAlien(x, y);
+        this.life = life;
+        this.points = points;
     }
 
     private void initAlien(int x, int y) {
