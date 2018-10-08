@@ -22,6 +22,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private ArrayList<Alien> aliens;
     private Player player;
     private Shot shot;
+    private Scoring scoring;
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 5;
@@ -93,9 +94,11 @@ public class Board extends JPanel implements Runnable, Commons {
             if (alien.isDying()) {
 
                 alien.die();
+
             }
         }
     }
+
 
     public void drawPlayer(Graphics g) {
 
