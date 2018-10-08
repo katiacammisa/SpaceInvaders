@@ -1,14 +1,14 @@
 package edu.austral.prog2_2018c2;
 
 public class Scoring {
-    int score;
 
-    public Scoring(){
+    private int score;
 
-    }
+    public Scoring() {}
 
-    public void sumPoints(int points){
-        score = points;
+    public void sumPoints(int points)
+    {
+       score += points;
     }
 
     public int getScore() {

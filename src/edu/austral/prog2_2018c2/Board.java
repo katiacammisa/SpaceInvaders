@@ -65,8 +65,22 @@ public class Board extends JPanel implements Runnable, Commons {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
 
-                Alien alien = new Alien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i);
-                aliens.add(alien);
+                Random rn = new Random();
+                int answer = rn.nextInt((3-1)+1) + 1;
+                switch(answer){
+                    case 1:
+                        SmallAlien smallAlien = new SmallAlien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i);
+                        aliens.add(smallAlien);
+                        break;
+                    case 2:
+                        MediumAlien mediumAlien = new MediumAlien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i);
+                        aliens.add(mediumAlien);
+                        break;
+                    case 3:
+                        BigAlien bigAlien = new BigAlien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i);
+                        aliens.add(bigAlien);
+                        break;
+                }
             }
         }
 
@@ -94,11 +108,10 @@ public class Board extends JPanel implements Runnable, Commons {
             if (alien.isDying()) {
 
                 alien.die();
-
+               // scoring.sumPoints(alien.getPoints());
             }
         }
     }
-
 
     public void drawPlayer(Graphics g) {
 
@@ -173,8 +186,8 @@ public class Board extends JPanel implements Runnable, Commons {
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2,
-                BOARD_WIDTH / 2);
+        g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2);
+
     }
 
     public void animationCycle() {
