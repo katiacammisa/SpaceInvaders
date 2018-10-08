@@ -38,6 +38,7 @@ public class Board extends JPanel implements Runnable, Commons {
     public Board() {
 
         initBoard();
+        scoring = new Scoring();
     }
 
     private void initBoard() {
@@ -108,7 +109,7 @@ public class Board extends JPanel implements Runnable, Commons {
             if (alien.isDying()) {
 
                 alien.die();
-               // scoring.sumPoints(alien.getPoints());
+                scoring.sumPoints(alien.getPoints());
             }
         }
     }
