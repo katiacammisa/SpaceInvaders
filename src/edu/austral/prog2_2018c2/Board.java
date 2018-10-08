@@ -70,15 +70,15 @@ public class Board extends JPanel implements Runnable, Commons {
                 int answer = rn.nextInt((3-1)+1) + 1;
                 switch(answer){
                     case 1:
-                        SmallAlien smallAlien = new SmallAlien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i);
+                        Alien smallAlien = new Alien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i, AlienType.SmallAlien);
                         aliens.add(smallAlien);
                         break;
                     case 2:
-                        MediumAlien mediumAlien = new MediumAlien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i);
+                        Alien mediumAlien = new Alien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i, AlienType.MediumAlien);
                         aliens.add(mediumAlien);
                         break;
                     case 3:
-                        BigAlien bigAlien = new BigAlien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i);
+                        Alien bigAlien = new Alien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i, AlienType.BigAlien);
                         aliens.add(bigAlien);
                         break;
                 }
