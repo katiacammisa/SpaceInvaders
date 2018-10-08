@@ -2,20 +2,16 @@ package edu.austral.prog2_2018c2;
 
 import javax.swing.ImageIcon;
 
-public abstract class Alien extends Sprite {
+public class Alien extends Sprite {
 
     private Bomb bomb;
-    private final String alienImg;
-    int points;
+    private final String alienImg = "src/images/BIgAlien.png";
+    private int life;
+    private int points;
 
-    public Alien(int x, int y, int points, String image) {
+    public Alien(int x, int y) {
 
         initAlien(x, y);
-        alienImg = image;
-    }
-
-    public int getPoints() {
-        return points;
     }
 
     private void initAlien(int x, int y) {
@@ -44,7 +40,6 @@ public abstract class Alien extends Sprite {
         private boolean destroyed;
 
         public Bomb(int x, int y) {
-
             initBomb(x, y);
         }
 
