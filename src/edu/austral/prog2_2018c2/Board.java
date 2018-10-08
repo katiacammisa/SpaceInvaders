@@ -1,11 +1,6 @@
 package edu.austral.prog2_2018c2;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -97,21 +92,22 @@ public class Board extends JPanel implements Runnable, Commons {
 
     public void drawAliens(Graphics g) {
 
-        Iterator it = aliens.iterator();
-
-        for (Alien alien: aliens) {
-
+        Iterator<Alien> it = aliens.iterator();
+        while (it.hasNext()){
+            Alien alien = it.next();
             if (alien.isVisible()) {
-
                 g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
             }
 
             if (alien.isDying()) {
-
                 alien.die();
+                it.remove();
                 scoring.sumPoints(alien.getPoints());
+                System.out.println(scoring.getScore());
             }
         }
+
+
     }
 
     public void drawPlayer(Graphics g) {
@@ -177,15 +173,15 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setColor(Color.black);
         g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
-        g.setColor(new Color(0, 32, 48));
+        g.setColor(new Color(64, 255, 21));
         g.fillRect(50, BOARD_WIDTH / 2 - 30, BOARD_WIDTH - 100, 50);
         g.setColor(Color.white);
         g.drawRect(50, BOARD_WIDTH / 2 - 30, BOARD_WIDTH - 100, 50);
 
-        Font small = new Font("Helvetica", Font.BOLD, 14);
+        Font small = new Font("Helvetica", Font.BOLD, 18);
         FontMetrics metr = this.getFontMetrics(small);
 
-        g.setColor(Color.white);
+        g.setColor(Color.black);
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2);
 
