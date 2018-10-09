@@ -119,8 +119,24 @@ public class Board extends JPanel implements Runnable, Commons {
 
         if (player.isDying()) {
 
-            player.die();
-            ingame = false;
+            if (player.hasShieldsLeft()) { //agregue esto
+                player.reduceShields();
+                player.setDying(false);
+                player.initPlayerDead();
+                player.setVisible(true);
+                System.out.println(player.getShields());
+            } else {
+                if (player.hasLivesLeft()) {
+                    player.reduceLives();
+                    player.setDying(false);
+                    player.initPlayer(); //agregue esto
+                    player.setVisible(true);
+                    System.out.println(player.getLives());
+                } else {
+                    player.die();
+                    ingame = false;
+                }
+            }
         }
     }
 
