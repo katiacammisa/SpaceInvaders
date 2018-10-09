@@ -22,7 +22,7 @@ public class Player extends Sprite implements Commons {
         initPlayer();
     }
 
-    public void initPlayer() { //cambie el private de esto por public
+    public void initPlayer() {
 
         ImageIcon ii = new ImageIcon(playerImg);
 
@@ -33,7 +33,7 @@ public class Player extends Sprite implements Commons {
         setY(START_Y);
     }
 
-    public void initPlayerDead() { //agregue esto
+    public void initPlayerDead() {
 
         ImageIcon ii = new ImageIcon(playerImg);
 
