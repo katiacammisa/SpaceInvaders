@@ -119,8 +119,25 @@ public class Board extends JPanel implements Runnable, Commons {
 
         if (player.isDying()) {
 
-            player.die();
-            ingame = false;
+            if (player.hasShieldsLeft()) {
+                player.reduceShields();
+                player.setDying(false);
+                player.initPlayerDead();
+                player.setVisible(true);
+                System.out.println(player.getShields());
+            }
+            else {
+                if (player.hasLivesLeft()) {
+                    player.reduceLives();
+                    player.setDying(false);
+                    player.initPlayer();
+                    player.setVisible(true);
+                    System.out.println(player.getLives());
+                } else {
+                    player.die();
+                    ingame = false;
+                }
+            }
         }
     }
 
@@ -170,8 +187,10 @@ public class Board extends JPanel implements Runnable, Commons {
 
         Graphics g = this.getGraphics();
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+//        g.setColor(Color.black);
+//        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+
+       // g.drawImage(shot.getImage(), BOARD_WIDTH, BOARD_HEIGHT, this); // agruegue esto
 
         g.setColor(new Color(64, 255, 21));
         g.fillRect(50, BOARD_WIDTH / 2 - 30, BOARD_WIDTH - 100, 50);
@@ -184,6 +203,7 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setColor(Color.black);
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2);
+
 
     }
 
