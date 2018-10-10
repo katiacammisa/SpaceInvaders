@@ -17,7 +17,7 @@ public class Player extends Sprite implements Commons {
 
     public Player() {
 
-        shields = 4;
+        shields = 100;
         lives = 3;
         initPlayer();
     }
@@ -76,7 +76,7 @@ public class Player extends Sprite implements Commons {
     }
 
     public void reduceShields(){
-        --shields;
+        shields = shields - 5;
     }
 
     public int getShields() {
