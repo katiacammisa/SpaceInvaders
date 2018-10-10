@@ -188,7 +188,7 @@ public class Board extends JPanel implements Runnable, Commons {
             g.drawString("Score: " + scoring.getScore(), 10, 12);
             g.drawString("Lives: " + player.getLives(), 300, 12);
             g.drawString("Shield: " + player.getShields() + "%" ,10,314);
-            Font small = new Font("Helvetica", Font.PLAIN, 17);
+            Font small = new Font("Helvetica", Font.PLAIN, 18);
             g.setFont(small);
             g.drawString("Level: " + counter,147,14);
             drawAliens(g);
