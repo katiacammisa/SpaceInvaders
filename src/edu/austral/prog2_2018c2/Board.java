@@ -29,7 +29,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
-    private String message = "Game Over";
+    private String message = "Game Over :(";
 
     private Thread animator;
 
@@ -178,6 +178,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
             g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
             g.drawString("Score: " + scoring.getScore(), 10, 12);
+            g.drawString("Lives: " + player.getLives(), 290, 12);
             drawAliens(g);
             drawPlayer(g);
             drawShot(g);
