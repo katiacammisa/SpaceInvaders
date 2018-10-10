@@ -11,8 +11,8 @@ public class Player extends Sprite implements Commons {
     private final int START_X = 270;
     private int lives;
     private int shields;
+    private String playerImg = "src/images/Player2Shield.png";
 
-    private final String playerImg = "src/images/player2.png";
     private int width;
 
     public Player() {
@@ -21,6 +21,7 @@ public class Player extends Sprite implements Commons {
         lives = 3;
         initPlayer();
     }
+
 
     public void initPlayer() {
 
@@ -44,7 +45,9 @@ public class Player extends Sprite implements Commons {
         setY(getY());
     }
 
-
+    public void setPlayerImg(String playerImg) {
+        this.playerImg = playerImg;
+    }
 
     public int getLives() {
         return lives;
