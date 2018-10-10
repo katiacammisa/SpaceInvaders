@@ -27,7 +27,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private int direction = -1;
     private int deaths = 0;
     private int levels = 5;
-    private int counter = 0;
+    private int counter = 1;
     private int delay = 17;
 
     private boolean ingame = true;
@@ -40,6 +40,10 @@ public class Board extends JPanel implements Runnable, Commons {
 
         initBoard();
         scoring = new Scoring();
+    }
+
+    public int getLevels() {
+        return levels;
     }
 
     private void initBoard() {
@@ -184,6 +188,9 @@ public class Board extends JPanel implements Runnable, Commons {
             g.drawString("Score: " + scoring.getScore(), 10, 12);
             g.drawString("Lives: " + player.getLives(), 300, 12);
             g.drawString("Shield: " + player.getShields() + "%" ,10,314);
+            Font small = new Font("Helvetica", Font.PLAIN, 17);
+            g.setFont(small);
+            g.drawString("Level: " + counter,147,14);
             drawAliens(g);
             drawPlayer(g);
             drawShot(g);
@@ -230,7 +237,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
             counter++;
-            if(counter < levels){
+            if(counter <= levels){
                 message = "Level pass! :)";
                 delay -= 2;
                 initBoard();
