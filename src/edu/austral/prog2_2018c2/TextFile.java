@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.io.IOException;
 
 
-public class    TextFile {
+public class TextFile {
 
     private String path;
     private boolean apend_to_file = false;

@@ -179,7 +179,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
             g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
             g.drawString("Score: " + scoring.getScore(), 10, 12);
-            g.drawString("Lives: " + player.getLives(), 290, 12);
+            g.drawString("Lives: " + player.getLives(), 300, 12);
             drawAliens(g);
             drawPlayer(g);
             drawShot(g);
