@@ -4,12 +4,15 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class Board extends JPanel implements Runnable, Commons {
 
@@ -187,10 +190,15 @@ public class Board extends JPanel implements Runnable, Commons {
 
         Graphics g = this.getGraphics();
 
-//        g.setColor(Color.black);
-//        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+       g.setColor(Color.black);
+       g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
        // g.drawImage(shot.getImage(), BOARD_WIDTH, BOARD_HEIGHT, this); // agruegue esto
+
+        Image cat;
+
+        cat = new ImageIcon("src/images/gatito.jpg").getImage();
+        g.drawImage(cat, 0, 0, null);
 
         g.setColor(new Color(64, 255, 21));
         g.fillRect(50, BOARD_WIDTH / 2 - 30, BOARD_WIDTH - 100, 50);
@@ -377,6 +385,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
             beforeTime = System.currentTimeMillis();
         }
+
 
         gameOver();
     }
