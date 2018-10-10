@@ -198,7 +198,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         Image cat;
 
-        if(message.equals("Game Over")) {
+        if(message.equals("Game Over :(")) {
             cat = new ImageIcon("src/images/gatito.jpg").getImage();
             g.drawImage(cat, 0, 0, null);
         } else {
