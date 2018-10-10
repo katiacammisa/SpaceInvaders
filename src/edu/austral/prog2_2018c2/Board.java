@@ -193,8 +193,8 @@ public class Board extends JPanel implements Runnable, Commons {
 
         Graphics g = this.getGraphics();
 
-       g.setColor(Color.black);
-       g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+        g.setColor(Color.black);
+        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
         Image cat;
 
