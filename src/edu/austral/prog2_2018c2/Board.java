@@ -176,6 +176,7 @@ public class Board extends JPanel implements Runnable, Commons {
         if (ingame) {
 
             g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
+            g.drawString("Score: " + scoring.getScore(), 10, 12);
             drawAliens(g);
             drawPlayer(g);
             drawShot(g);
@@ -192,8 +193,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
        g.setColor(Color.black);
        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
-
-       // g.drawImage(shot.getImage(), BOARD_WIDTH, BOARD_HEIGHT, this); // agruegue esto
 
         Image cat;
 
