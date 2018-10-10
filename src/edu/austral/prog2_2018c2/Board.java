@@ -26,6 +26,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private final int ALIEN_INIT_Y = 5;
     private int direction = -1;
     private int deaths = 0;
+    int levels = 5;
 
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
@@ -224,11 +225,19 @@ public class Board extends JPanel implements Runnable, Commons {
     }
 
     public void animationCycle() {
+        int counter = 1;                                // agregue hasta el final
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {    //
+                                                        //
+            message = "Level pass! :)";                 //
+            counter++;                                  //
+            initBoard();                                //
+            deaths = 0;
+            if(counter > levels){
+                ingame = false;
+                message = "Game won!";                  //hasta aca
+            }
 
-        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
 
-            ingame = false;
-            message = "Game won!";
         }
 
         // player
@@ -355,9 +364,9 @@ public class Board extends JPanel implements Runnable, Commons {
                 }
             }
 
-            if (!b.isDestroyed()) {
+                if (!b.isDestroyed()) {
 
-                b.setY(b.getY() + 1);
+                    b.setY(b.getY() + 1);
 
                 if (b.getY() >= GROUND - BOMB_HEIGHT) {
                     b.setDestroyed(true);
