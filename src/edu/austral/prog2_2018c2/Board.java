@@ -27,7 +27,8 @@ public class Board extends JPanel implements Runnable, Commons {
     private int direction = -1;
     private int deaths = 0;
     private int levels = 5;
-    int counter = 0;
+    private int counter = 0;
+    private int delay = 17;
 
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
@@ -231,6 +232,7 @@ public class Board extends JPanel implements Runnable, Commons {
             counter++;
             if(counter < levels){
                 message = "Level pass! :)";
+                delay -= 2;
                 initBoard();
                 deaths = 0;
             }
@@ -388,7 +390,7 @@ public class Board extends JPanel implements Runnable, Commons {
             animationCycle();
 
             timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = DELAY - timeDiff;
+            sleep = delay - timeDiff;
 
             if (sleep < 0) {
                 sleep = 2;
