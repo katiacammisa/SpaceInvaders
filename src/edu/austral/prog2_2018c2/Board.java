@@ -116,7 +116,6 @@ public class Board extends JPanel implements Runnable, Commons {
     public void drawPlayer(Graphics g) {
 
         if (player.isVisible()) {
-
             g.drawImage(player.getImage(), player.getX(), player.getY(), this);
         }
 
@@ -124,23 +123,25 @@ public class Board extends JPanel implements Runnable, Commons {
 
             if (player.hasShieldsLeft()) {
                 player.reduceShields();
+                if(player.getShields()== 0) {
+                    player.setPlayerImg("src/images/Player2.png");
+                }
                 player.setDying(false);
                 player.initPlayerDead();
                 player.setVisible(true);
                 System.out.println(player.getShields());
             }
-            else {
-                if (player.hasLivesLeft()) {
+            else if (player.hasLivesLeft()) {
                     player.reduceLives();
                     player.setPlayerImg("src/images/Player2.png");
                     player.setDying(false);
                     player.initPlayer();
                     player.setVisible(true);
                     System.out.println(player.getLives());
-                } else {
-                    player.die();
-                    ingame = false;
                 }
+            else {
+                player.die();
+                ingame = false;
             }
         }
     }
@@ -198,7 +199,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         Image cat;
 
-        if(message.equals("Game Over")) {
+        if(message.equals("Game Over")|| message.equals("Invasion!")) {
             cat = new ImageIcon("src/images/gatito.jpg").getImage();
             g.drawImage(cat, 0, 0, null);
         } else {
