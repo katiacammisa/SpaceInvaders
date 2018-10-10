@@ -358,8 +358,7 @@ public class Board extends JPanel implements Runnable, Commons {
                         && bombX <= (playerX + PLAYER_WIDTH)
                         && bombY >= (playerY)
                         && bombY <= (playerY + PLAYER_HEIGHT)) {
-                    ImageIcon ii
-                            = new ImageIcon(explImg);
+                    ImageIcon ii = new ImageIcon(explImg);
                     player.setImage(ii.getImage());
                     player.setDying(true);
                     b.setDestroyed(true);
