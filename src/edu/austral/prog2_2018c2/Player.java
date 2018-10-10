@@ -11,7 +11,7 @@ public class Player extends Sprite implements Commons {
     private final int START_X = 270;
     private int lives;
     private int shields;
-    private String playerImg = "src/images/Player2Shield.png";
+    private String playerImg = "src/images/Player2Shield1.png";
 
     private int width;
 
