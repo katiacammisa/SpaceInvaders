@@ -394,13 +394,11 @@ public class Board extends JPanel implements Runnable, Commons {
                         b.setDestroyed(true);
                     }
                 }
-                    if(shotX >= (shieldX)
-                            && shield.isVisible()
+                    if(shotX >= (shieldX) && shield.isVisible()
                             && shotX <= (shieldX + shield.getWidth())
-                            && shotY <= (shieldY + SHIELD_HEIGHT)
+                            && shotY <= (shieldY + 3.5 * (SHIELD_HEIGHT))
                             && shotY > (shieldY)
                             && shot.isVisible()) {
-                        System.out.println(shield.getLife());
                         shield.reduceLives();
                         shot.die();
                 }
