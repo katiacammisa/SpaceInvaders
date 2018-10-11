@@ -14,4 +14,5 @@ public interface Commons {
     public static final int CHANCE = 5;
     public static final int PLAYER_WIDTH = 18;
     public static final int PLAYER_HEIGHT = 10;
+    public static final int SHIELD_HEIGHT = 8;
 }

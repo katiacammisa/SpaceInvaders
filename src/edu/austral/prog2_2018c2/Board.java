@@ -18,12 +18,15 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private Dimension d;
     private ArrayList<Alien> aliens;
+    private ArrayList<Shield> shields;
     private Player player;
     private Shot shot;
     private Scoring scoring;
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 5;
+    private final int SHIELD_INIT_X = 50;
+    private final int SHIELD_INIT_Y = 230;
     private int direction = -1;
     private int deaths = 0;
     private int levels = 5;
@@ -90,6 +93,12 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
+        shields = new ArrayList<Shield>();
+        for (int i = 0; i < 4; i++) {
+            Shield shield = new Shield(SHIELD_INIT_X + 80 * i,SHIELD_INIT_Y);
+            shields.add(shield);
+        }
+
         player = new Player();
         shot = new Shot();
 
@@ -116,8 +125,6 @@ public class Board extends JPanel implements Runnable, Commons {
                 System.out.println(scoring.getScore());
             }
         }
-
-
     }
 
     public void drawPlayer(Graphics g) {
@@ -128,29 +135,28 @@ public class Board extends JPanel implements Runnable, Commons {
 
         if (player.isDying()) {
 
-            if (player.hasShieldsLeft()) {
-                player.reduceShields();
-                if(player.getShields()== 0) {
-                    player.setPlayerImg("src/images/Player2.png");
-                }
-                player.setDying(false);
-                player.initPlayerDead();
-                player.setVisible(true);
-                System.out.println(player.getShields());
-            }
-            else if (player.hasLivesLeft()) {
+            if (player.hasLivesLeft()) {
                     player.reduceLives();
-                    player.setPlayerImg("src/images/Player2.png");
                     player.setDying(false);
                     player.initPlayer();
                     player.setVisible(true);
-                    System.out.println(player.getLives());
                 }
             else {
                 player.die();
+                message = "Game Over :(";
                 ingame = false;
             }
         }
+    }
+
+    public void drawShield(Graphics g) {
+
+        for(Shield shield : shields) {
+            if (shield.isVisible()) {
+                g.drawImage(shield.getImage(), shield.getX(), shield.getY(), this);
+            }
+        }
+
     }
 
     public void drawShot(Graphics g) {
@@ -187,12 +193,12 @@ public class Board extends JPanel implements Runnable, Commons {
             g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
             g.drawString("Score: " + scoring.getScore(), 10, 12);
             g.drawString("Lives: " + player.getLives(), 300, 12);
-            g.drawString("Shield: " + player.getShields() + "%" ,10,314);
             Font small = new Font("Helvetica", Font.PLAIN, 17);
             g.setFont(small);
             g.drawString("Level: " + counter,147,14);
             drawAliens(g);
             drawPlayer(g);
+            drawShield(g);
             drawShot(g);
             drawBombing(g);
         }
@@ -372,10 +378,26 @@ public class Board extends JPanel implements Runnable, Commons {
                 }
             }
 
-                if (!b.isDestroyed()) {
+            for(Shield shield : shields)
+            {
+                int shieldX = shield.getX();
+                int shieldY = shield.getY();
 
-                    b.setY(b.getY() + 1);
+                if (shield.isVisible() && !b.isDestroyed()) {
 
+                    if (bombX >= (shieldX)
+                            && bombX <= (shieldX + shield.getWidth())
+                            && bombY >= (shieldY - SHIELD_HEIGHT)
+                            && bombY <= (shieldY + SHIELD_HEIGHT)) {
+                        shield.reduceLives();
+                        b.setDestroyed(true);
+                    }
+                }
+
+            }
+
+            if (!b.isDestroyed()) {
+                b.setY(b.getY() + 1);
                 if (b.getY() >= GROUND - BOMB_HEIGHT) {
                     b.setDestroyed(true);
                 }

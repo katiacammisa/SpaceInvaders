@@ -10,14 +10,12 @@ public class Player extends Sprite implements Commons {
     private final int START_Y = 280;
     private final int START_X = 270;
     private int lives;
-    private int shields;
-    private String playerImg = "src/images/Player2Shield1.png";
+    private String playerImg = "src/images/Player2.png";
 
     private int width;
 
     public Player() {
 
-        shields = 100;
         lives = 3;
         initPlayer();
     }
@@ -64,23 +62,6 @@ public class Player extends Sprite implements Commons {
 
     public void reduceLives(){
         --lives;
-    }
-
-    public boolean hasShieldsLeft()
-    {
-        if(shields>= 1)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public void reduceShields(){
-        shields = shields - 5;
-    }
-
-    public int getShields() {
-        return shields;
     }
 
     public void act() {
