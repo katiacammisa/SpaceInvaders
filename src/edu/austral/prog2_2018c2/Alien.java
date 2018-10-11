@@ -13,7 +13,6 @@ public class Alien extends Sprite {
 
         this.alienImg = alienType.getImage();
         initAlien(x, y);
-        this.life = life;
         this.points = alienType.getPoints();
 
     }

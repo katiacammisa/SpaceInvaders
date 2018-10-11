@@ -19,7 +19,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private Dimension d;
     private ArrayList<Alien> aliens;
     private ArrayList<Shield> shields;
-    private Player player;
+    private Player player = new Player();
     private Shot shot;
     private Scoring scoring;
 
@@ -99,7 +99,6 @@ public class Board extends JPanel implements Runnable, Commons {
             shields.add(shield);
         }
 
-        player = new Player();
         shot = new Shot();
 
         if (animator == null || !ingame) {
@@ -244,7 +243,7 @@ public class Board extends JPanel implements Runnable, Commons {
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
             counter++;
             if(counter <= levels){
-                message = "Level pass! :)";
+                System.out.println(message = "Level pass! :)");
                 delay -= 2;
                 initBoard();
                 deaths = 0;
@@ -350,10 +349,10 @@ public class Board extends JPanel implements Runnable, Commons {
 
         for (Alien alien: aliens) {
 
-            int shot = generator.nextInt(15);
+            int shots = generator.nextInt(15);
             Alien.Bomb b = alien.getBomb();
 
-            if (shot == CHANCE && alien.isVisible() && b.isDestroyed()) {
+            if (shots == CHANCE && alien.isVisible() && b.isDestroyed()) {
 
                 b.setDestroyed(false);
                 b.setX(alien.getX());
@@ -364,6 +363,8 @@ public class Board extends JPanel implements Runnable, Commons {
             int bombY = b.getY();
             int playerX = player.getX();
             int playerY = player.getY();
+            int shotX = shot.getX();
+            int shotY = shot.getY();
 
             if (player.isVisible() && !b.isDestroyed()) {
 
@@ -393,7 +394,16 @@ public class Board extends JPanel implements Runnable, Commons {
                         b.setDestroyed(true);
                     }
                 }
-
+                    if(shotX >= (shieldX)
+                            && shield.isVisible()
+                            && shotX <= (shieldX + shield.getWidth())
+                            && shotY <= (shieldY + SHIELD_HEIGHT)
+                            && shotY > (shieldY)
+                            && shot.isVisible()) {
+                        System.out.println(shield.getLife());
+                        shield.reduceLives();
+                        shot.die();
+                }
             }
 
             if (!b.isDestroyed()) {

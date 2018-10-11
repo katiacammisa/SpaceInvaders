@@ -55,8 +55,6 @@ public class Shield extends Sprite implements Commons {
             life = 0;
             die();
         }
-
-
     }
 
     public boolean hasShieldLeft()
