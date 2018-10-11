@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 public class Shield extends Sprite implements Commons {
 
     private int life = 100;
-    private String shieldImg = "src/images/Shield.png";
+    private String shieldImg = "src/images/Shield3.png";
     private int width;
     private boolean visible = true;
 
