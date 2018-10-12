@@ -7,6 +7,7 @@ public class Shot extends Sprite {
     private final String shotImg = "src/images/shot.png";
     private final int H_SPACE = 6;
     private final int V_SPACE = 1;
+    private int delay = 7;
 
     public Shot() {
     }
@@ -25,5 +26,7 @@ public class Shot extends Sprite {
         setY(y - V_SPACE);
     }
 
-
+    public int getDelay() {
+        return delay;
+    }
 }
