@@ -32,6 +32,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private int levels = 5;
     private int counter = 1;
     private int delay = 17;
+    private int shieldAmount = 4;   //Nueva variable
 
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
@@ -94,7 +95,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         shields = new ArrayList<Shield>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < shieldAmount; i++) {
             Shield shield = new Shield(SHIELD_INIT_X + 80 * i,SHIELD_INIT_Y);
             shields.add(shield);
         }
@@ -148,14 +149,21 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    public void drawShield(Graphics g) {
+    public void drawShield(Graphics g) { //saque el for, para usar iterator
 
-        for(Shield shield : shields) {
+        Iterator<Shield> it = shields.iterator();
+        while(it.hasNext())
+        {
+            Shield shield = it.next();
             if (shield.isVisible()) {
                 g.drawImage(shield.getImage(), shield.getX(), shield.getY(), this);
             }
+            if(shield.isDying()) //ESto es nuevo
+            {
+                shield.die();
+                it.remove();
+            }
         }
-
     }
 
     public void drawShot(Graphics g) {
@@ -240,12 +248,20 @@ public class Board extends JPanel implements Runnable, Commons {
 
     }
 
-    public void animationCycle() {
+    public void animationCycle(){
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
             counter++;
             if(counter <= levels){
                 System.out.println(message = "Level pass! :)");
+                int count = 0;                              //Desde aca
+                for (int i = 0; i < shieldAmount; i++) {
+                    if(shields.get(i) != null)
+                    {
+                        count++;
+                    }
+                }
+                shieldAmount = count - 1;                   //Hasta aca hace que vayan bajando los Shields
                 delay -= 2;
                 initBoard();
                 deaths = 0;
