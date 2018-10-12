@@ -14,7 +14,6 @@ public class Shield extends Sprite implements Commons {
         initShield(x, y);
     }
 
-
     public void initShield(int x, int y) {
 
         ImageIcon ii = new ImageIcon(shieldImg);
