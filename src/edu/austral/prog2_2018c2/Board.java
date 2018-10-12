@@ -50,7 +50,7 @@ public class Board extends JPanel implements Runnable, Commons {
         return levels;
     }
 
-    private void initBoard() {
+    private void initBoard() { //Crea el board, lo grafico
 
         addKeyListener(new TAdapter());
         setFocusable(true);
@@ -62,13 +62,13 @@ public class Board extends JPanel implements Runnable, Commons {
     }
 
     @Override
-    public void addNotify() {
+    public void addNotify() { //??
 
         super.addNotify();
         gameInit();
     }
 
-    public void gameInit() {
+    public void gameInit() { //inicia el juego, y todas sus componentes
 
         aliens = new ArrayList<>();
 
@@ -232,19 +232,19 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         g.setColor(new Color(64, 255, 21));
-        g.fillRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80);//30
+        g.fillRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80); //30
         g.setColor(Color.white);
         g.drawRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80);
 
         Font small = new Font("Helvetica", Font.BOLD, 18);
         FontMetrics metr = this.getFontMetrics(small);
-        Font smalleano = new Font("Monospaced", Font.PLAIN, 16); //esto
+        Font smalleano = new Font("Monospaced", Font.BOLD, 16); //Lo cambie a bold
 
         g.setColor(Color.black);
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2 - 5);
         g.setFont(smalleano);
-        g.drawString("Score: " + scoring.getScore(), 140, 200);//esto
+        g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
 
     }
 
