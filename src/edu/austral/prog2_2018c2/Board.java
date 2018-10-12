@@ -24,9 +24,9 @@ public class Board extends JPanel implements Runnable, Commons {
     private Scoring scoring;
 
     private final int ALIEN_INIT_X = 150;
-    private final int ALIEN_INIT_Y = 5;
+    private final int ALIEN_INIT_Y = 45;//5
     private final int SHIELD_INIT_X = 50;
-    private final int SHIELD_INIT_Y = 230;
+    private final int SHIELD_INIT_Y = 270;//230
     private int direction = -1;
     private int deaths = 0;
     private int levels = 5;
