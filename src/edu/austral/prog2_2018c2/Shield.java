@@ -26,17 +26,6 @@ public class Shield extends Sprite implements Commons {
         setY(y);
     }
 
-    public void initPlayerDead() {
-
-        ImageIcon ii = new ImageIcon(shieldImg);
-
-        width = ii.getImage().getWidth(null);
-
-        setImage(ii.getImage());
-        setX(getX());
-        setY(getY());
-    }
-
     public int getLife() {
         return life;
     }

@@ -224,17 +224,19 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         g.setColor(new Color(64, 255, 21));
-        g.fillRect(50, BOARD_WIDTH / 2 - 30, BOARD_WIDTH - 100, 50);
+        g.fillRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80);//30
         g.setColor(Color.white);
-        g.drawRect(50, BOARD_WIDTH / 2 - 30, BOARD_WIDTH - 100, 50);
+        g.drawRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80);
 
         Font small = new Font("Helvetica", Font.BOLD, 18);
         FontMetrics metr = this.getFontMetrics(small);
+        Font smalleano = new Font("Monospaced", Font.PLAIN, 16); //esto
 
         g.setColor(Color.black);
         g.setFont(small);
-        g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2);
-
+        g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2 - 5);
+        g.setFont(smalleano);
+        g.drawString("Score: " + scoring.getScore(), 140, 200);//esto
 
     }
 
