@@ -4,14 +4,12 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Board extends JPanel implements Runnable, Commons {
@@ -22,6 +20,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private Player player = new Player();
     private Shot shot;
     private Scoring scoring;
+    private Alien UFO;
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 45;//5
@@ -30,11 +29,12 @@ public class Board extends JPanel implements Runnable, Commons {
     private int direction = -1;
     private int deaths = 0;
     private int levels = 5;
-    private int counter = 1;
-    private int delay = 17;
+    private int levelCounter = 1;
+    private int delay = 15;
     private int shieldAmount = 4;   //Nueva variable
 
     private boolean ingame = true;
+    private boolean ufoOn = false;
     private final String explImg = "src/images/explosion.png";
     private String message = "Game Over :(";
 
@@ -66,6 +66,12 @@ public class Board extends JPanel implements Runnable, Commons {
 
         super.addNotify();
         gameInit();
+    }
+
+    public void delayInSeconds(int time){ // Para frenar el juego cuando pasamos de nivel
+        try{
+            Thread.sleep(time*1000);
+        } catch (InterruptedException e){}
     }
 
     public void gameInit() { //inicia el juego, y todas sus componentes
@@ -101,6 +107,8 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         shot = new Shot();
+
+        UFO = new Alien(0,10,AlienType.UFO);
 
         if (animator == null || !ingame) {
 
@@ -187,6 +195,17 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
+    public void drawUFO(Graphics g){  //Bienvenido sea UFO
+
+        if(UFO.isVisible()){
+            g.drawImage(UFO.getImage(), UFO.getX(), UFO.getY(), this);
+        }
+        if(UFO.isDying()){
+            UFO.die();
+            scoring.sumPoints(UFO.getPoints());
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -202,12 +221,13 @@ public class Board extends JPanel implements Runnable, Commons {
             g.drawString("Lives: " + player.getLives(), 300, 12);
             Font small = new Font("Helvetica", Font.PLAIN, 17);
             g.setFont(small);
-            g.drawString("Level: " + counter,147,14);
+            g.drawString("Level: " + levelCounter,147,14);
             drawAliens(g);
             drawPlayer(g);
             drawShield(g);
             drawShot(g);
             drawBombing(g);
+            drawUFO(g);
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -248,12 +268,27 @@ public class Board extends JPanel implements Runnable, Commons {
 
     }
 
+    public void drawLevelPass(){  // esto es nuevo
+
+        Graphics g = this.getGraphics();
+
+        Font small = new Font("Helvetica", Font.BOLD, 18);
+        FontMetrics metr = this.getFontMetrics(small);
+
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString("Level passed! :)", (BOARD_WIDTH - metr.stringWidth("Level Passed! :)")) / 2, BOARD_WIDTH / 2 - 5);
+
+    }
+
     public void animationCycle(){
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
-            counter++;
-            if(counter <= levels){
-                System.out.println(message = "Level pass! :)");
+            levelCounter++;
+            if(levelCounter <= levels){
+                drawLevelPass();            //Esperar y pasar de nivel
+                delayInSeconds(2);
+
                 int count = 0;                              //Desde aca
                 for (int i = 0; i < shieldAmount; i++) {
                     if(shields.get(i) != null)
@@ -361,6 +396,18 @@ public class Board extends JPanel implements Runnable, Commons {
                 alien.act(direction);
             }
         }
+
+        //UFO
+//        if(System.currentTimeMillis()> 5000 && System.currentTimeMillis() < 6000){
+//            ufoOn = true;
+//        }
+//        if(ufoOn){
+//            UFO.act(1);
+//        }
+//        if(UFO.getX()> BOARD_WIDTH)
+//        {
+//            ufoOn = false;
+//        }
 
         // bombs
         Random generator = new Random();
