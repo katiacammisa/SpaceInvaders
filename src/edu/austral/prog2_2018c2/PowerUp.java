@@ -7,7 +7,7 @@ public class PowerUp {
 
     public PowerUp() {
         int rn = (int) (Math.random() * 10) + 1;
-        switch (1) {
+        switch (rn) {
             case 1: name = "Freeze";
             break;
             case 2: case 3: name = "Immunity";
