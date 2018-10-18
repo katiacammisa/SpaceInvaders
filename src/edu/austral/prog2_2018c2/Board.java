@@ -504,23 +504,12 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
-        // bombs
-        if(!freeze){
         Random generator = new Random();
-
         for (Iterator<Alien> iterator = aliens.iterator(); iterator.hasNext(); ) {
             Alien alien = iterator.next();
 
             int shots = generator.nextInt(15);
             Alien.Bomb b = alien.getBomb();
-
-            if (shots == CHANCE && alien.isVisible() && b.isDestroyed()) {
-
-                b.setDestroyed(false);
-                b.setX(alien.getX());
-                b.setY(alien.getY());
-            }
-
             int bombX = b.getX();
             int bombY = b.getY();
             int playerX = player.getX();
@@ -530,16 +519,46 @@ public class Board extends JPanel implements Runnable, Commons {
             int shot2X = shot2.getX();
             int shot2Y = shot2.getY();
 
-            if (player.isVisible() && !b.isDestroyed()) {
+            // bombs
+            if (!freeze) {
+                if (shots == CHANCE && alien.isVisible() && b.isDestroyed()) {
 
-                if (bombX >= (playerX)
-                        && bombX <= (playerX + PLAYER_WIDTH)
-                        && bombY >= (playerY)
-                        && bombY <= (playerY + PLAYER_HEIGHT)) {
-                    if (!inmunity) {
-                        player.setDying(true);
+                    b.setDestroyed(false);
+                    b.setX(alien.getX());
+                    b.setY(alien.getY());
+                }
+
+                if (player.isVisible() && !b.isDestroyed()) {
+
+                    if (bombX >= (playerX)
+                            && bombX <= (playerX + PLAYER_WIDTH)
+                            && bombY >= (playerY)
+                            && bombY <= (playerY + PLAYER_HEIGHT)) {
+                        if (!inmunity) {
+                            player.setDying(true);
+                        }
+                        b.setDestroyed(true);
                     }
-                    b.setDestroyed(true);
+                }
+
+                int ufox = UFO.getX();                          //DESDE ACA
+                int ufoy = UFO.getY();
+
+                if (shotX >= (ufox) && UFO.isVisible()
+                        && shotX <= (ufox + UFO_WIDTH)
+                        && shotY <= (ufoy + (UFO_HEIGHT))
+                        && shotY > (ufoy)
+                        && shot.isVisible()) {
+                    UFO.setDying(true);
+                    shot.die();
+                    shotCounter++;                              //HASTA ACA DESTROY UFO
+                }
+
+                if (!b.isDestroyed()) {
+                    b.setY(b.getY() + 1);
+                    if (b.getY() >= GROUND - BOMB_HEIGHT) {
+                        b.setDestroyed(true);
+                    }
                 }
             }
 
@@ -574,28 +593,6 @@ public class Board extends JPanel implements Runnable, Commons {
                     shot2.die();
                 }
             }
-
-            int ufox = UFO.getX();                          //DESDE ACA
-            int ufoy = UFO.getY();
-
-            if (shotX >= (ufox) && UFO.isVisible()
-                    && shotX <= (ufox + UFO_WIDTH)
-                    && shotY <= (ufoy + (UFO_HEIGHT))
-                    && shotY > (ufoy)
-                    && shot.isVisible()) {
-                UFO.setDying(true);
-                shot.die();
-                shotCounter++;                              //HASTA ACA DESTROY UFO
-            }
-
-            if (!b.isDestroyed()) {
-                b.setY(b.getY() + 1);
-                if (b.getY() >= GROUND - BOMB_HEIGHT) {
-                    b.setDestroyed(true);
-                }
-            }
-        }
-
         }
 
         //PowerUps
