@@ -610,6 +610,9 @@ public class Board extends JPanel implements Runnable, Commons {
                 freeze = true;
             }
         }
+        if(player.getPowerUp() != null) {
+            shotCounter = 0;
+        }
 
     }
 
