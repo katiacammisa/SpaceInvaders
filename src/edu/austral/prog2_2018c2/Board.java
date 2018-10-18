@@ -24,16 +24,19 @@ public class Board extends JPanel implements Runnable, Commons {
     private Alien UFO;
 
     private final int ALIEN_INIT_X = 150;
-    private final int ALIEN_INIT_Y = 45;//5
+    private final int ALIEN_INIT_Y = 45;
     private final int SHIELD_INIT_X = 50;
-    private final int SHIELD_INIT_Y = 270;//230
+    private final int SHIELD_INIT_Y = 270;
     private int direction = -1;
     private int deaths = 0;
     private int levels = 5;
     private int levelCounter = 1;
     private int delay = 15;
-    private int shieldAmount = 4;//Nueva variable
+    private int shieldAmount = 4;   //Nueva variable
+    private int random = 0;
     private int shotCounter = 0;
+
+    private long UfoTimer;
 
     private boolean doubleDamage = false;
     private boolean ingame = true;
@@ -117,13 +120,15 @@ public class Board extends JPanel implements Runnable, Commons {
         shot = new Shot();
         shot2 = new Shot();
 
-        UFO = new Alien(-30,220,AlienType.UFO);
+        UFO = new Alien(-25, 25,AlienType.UFO);
 
         if (animator == null || !ingame) {
 
             animator = new Thread(this);
             animator.start();
         }
+
+        random = 0;
     }
 
     public void drawAliens(Graphics g) {
@@ -215,6 +220,7 @@ public class Board extends JPanel implements Runnable, Commons {
             UFO.die();
             scoring.sumPoints(UFO.getPoints());
             UFO.setDying(false);
+            UFO.setDying(false);
         }
         if(UFO.getX() > BOARD_WIDTH) {
             UFO.die();
@@ -299,6 +305,33 @@ public class Board extends JPanel implements Runnable, Commons {
 
     public void animationCycle() {
 
+        long timing = System.currentTimeMillis() - UfoTimer;
+
+        if(timing >= 7000 && timing <= 50000) {
+            random =(int) (Math.random()*10)+ 1;
+        }
+        if(timing > 50000 && timing <= 55000){
+            random = (int)(Math.random()*10)+ 1;
+        }
+        if(timing > 55000 && timing <= 60000){
+            random = (int) (Math.random()*10)+ 1;
+        }
+        if(timing > 60000){
+            random = 1;
+        }
+
+        if(random == 1){
+            UFO.act(2);
+            UfoTimer = System.currentTimeMillis();
+        }
+
+        if(UFO.getX() > BOARD_WIDTH){
+            random = 0;
+            UfoTimer = System.currentTimeMillis();
+            UFO.die();
+            Alien UFO = new Alien(-25, 25, AlienType.UFO);
+        }
+
         Graphics g = this.getGraphics();
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
@@ -321,14 +354,6 @@ public class Board extends JPanel implements Runnable, Commons {
                 message = "Game won!";
             }
         }
-
-        int time = (int) (Math.random() * (6000 - 4500)) + 4500;
-        Timer timer = new Timer(time, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                UFO.act(2);
-            }
-        });
-        timer.start();
 
         // player
         player.act();
@@ -536,6 +561,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         long beforeTime, timeDiff, sleep;
 
+        UfoTimer = System.currentTimeMillis();
         beforeTime = System.currentTimeMillis();
 
         while (ingame) {

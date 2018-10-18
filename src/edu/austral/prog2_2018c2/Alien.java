@@ -6,10 +6,10 @@ public class Alien extends Sprite {
 
     private Bomb bomb;
     private final String alienImg;
-    private int life;
     private int points;
     private AlienType alientype;
     private boolean dead;
+
 
     public Alien(int x, int y, AlienType alienType) {
 

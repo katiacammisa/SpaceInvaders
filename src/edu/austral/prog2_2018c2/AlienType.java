@@ -7,7 +7,7 @@ public class AlienType {
    private int points;
    private String image;
    private static Random rn = new Random();
-   private static int answer = rn.nextInt(300)+ 50;
+   private static int answer = rn.nextInt(300) + 50;
 
    public static AlienType BigAlien = new AlienType(10, "src/images/BigAlien.png");
    public static AlienType MediumAlien = new AlienType(20, "src/images/MediumAlien.png");
