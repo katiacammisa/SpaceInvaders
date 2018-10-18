@@ -343,8 +343,16 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         //Graphics g = this.getGraphics();
+        Iterator alin = aliens.iterator();
+        int counter = 0;
+        while (alin.hasNext()){
+            Alien alien = (Alien) alin.next();
+            if(alien.isVisible() == false){
+                counter++;
+            }
+        }
 
-        if (deaths >= NUMBER_OF_ALIENS_TO_DESTROY) {
+        if (deaths >= NUMBER_OF_ALIENS_TO_DESTROY && counter == NUMBER_OF_ALIENS_TO_DESTROY) {
             levelCounter++;
             if (levelCounter <= levels) {
                 drawLevelPass();
