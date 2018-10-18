@@ -11,6 +11,7 @@ public class Player extends Sprite implements Commons {
     private final int START_X = 51; //
     private int lives;
     private String playerImg = "src/images/Player2.png";
+    private PowerUp powerUp;
 
     private int width;
 
@@ -20,6 +21,13 @@ public class Player extends Sprite implements Commons {
         initPlayer();
     }
 
+    public PowerUp getPowerUp() {
+        return powerUp;
+    }
+
+    public void setPowerUp(PowerUp powerUp) {
+        this.powerUp = powerUp;
+    }
 
     public void initPlayer() {
 

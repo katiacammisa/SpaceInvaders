@@ -8,17 +8,34 @@ public class Alien extends Sprite {
     private final String alienImg;
     private int life;
     private int points;
+    private AlienType alientype;
+    private boolean dead;
 
     public Alien(int x, int y, AlienType alienType) {
 
         this.alienImg = alienType.getImage();
         initAlien(x, y);
         this.points = alienType.getPoints();
+        alientype = alienType;
 
+    }
+
+    @Override
+    public void die() {
+        super.die();
+        dead = true;
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 
     public int getPoints() {
         return points;
+    }
+
+    public AlienType getAlientype() {
+        return alientype;
     }
 
     private void initAlien(int x, int y) {
