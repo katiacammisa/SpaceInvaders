@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.awt.image.ImageObserver;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class Board extends JPanel implements Runnable, Commons {
@@ -23,6 +24,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private Scoring scoring;
     private Alien UFO;
     private TextFile textFile = new TextFile();
+    private Timer timer = new Timer();
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 45;
@@ -596,11 +598,36 @@ public class Board extends JPanel implements Runnable, Commons {
             System.out.println(powerUp.getName());
             if (powerUp.getName().equals("Immunity")) {
                 inmunity = true;
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        inmunity = false;
+                        player.setPowerUp(null);
+                    }
+                };
+                timer.schedule(task, (int)(Math.random()*5000)+3000);
+
             } else if (powerUp.getName().equals("Double Damage")) {
                 doubleDamage = true;
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        doubleDamage = false;
+                        player.setPowerUp(null);
+                    }
+                };
+                timer.schedule(task, (int)(Math.random()*5000)+3000);
 
             } else if (powerUp.getName().equals("Freeze")) {
                 freeze = true;
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        freeze = false;
+                        player.setPowerUp(null);
+                    }
+                };
+                timer.schedule(task, (int)(Math.random()*5000)+3000);
             }
         }
         if(player.getPowerUp() != null) {
