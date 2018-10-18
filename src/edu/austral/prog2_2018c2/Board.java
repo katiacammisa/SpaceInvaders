@@ -22,6 +22,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private Shot shot2;
     private Scoring scoring;
     private Alien UFO;
+    private TextFile textFile = new TextFile();
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 45;
@@ -286,8 +287,17 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2 - 5);
         g.setFont(smalleano);
+        if(player.getLives() == 3){
+            scoring.sumPoints(300);
+        }
+        if(player.getLives() == 2){
+            scoring.sumPoints(200);
+        }
+        if(player.getLives() == 1){
+            scoring.sumPoints(100);
+        }
         g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
-
+        textFile.run(scoring.getScore());
     }
 
     public void drawLevelPass(){  // esto es nuevo
