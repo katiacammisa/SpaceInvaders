@@ -339,13 +339,12 @@ public class Board extends JPanel implements Runnable, Commons {
 
         if(UFO.getX() > BOARD_WIDTH){
             random = 0;
-            UfoTimer = System.currentTimeMillis();
             UFO.die();
         }
 
         //Graphics g = this.getGraphics();
 
-        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
+        if (deaths >= NUMBER_OF_ALIENS_TO_DESTROY) {
             levelCounter++;
             if (levelCounter <= levels) {
                 drawLevelPass();
@@ -384,8 +383,6 @@ public class Board extends JPanel implements Runnable, Commons {
                             && shotX <= (alienX + ALIEN_WIDTH)
                             && shotY >= (alienY)
                             && shotY <= (alienY + ALIEN_HEIGHT)) {
-                        ImageIcon ii = new ImageIcon(explImg);
-                        alien.setImage(ii.getImage());
                         alien.setDying(true);
                         if(alien.isDying()) {
                             deaths++;
@@ -522,6 +519,8 @@ public class Board extends JPanel implements Runnable, Commons {
             int playerY = player.getY();
             int shotX = shot.getX();
             int shotY = shot.getY();
+            int shot2X = shot2.getX();
+            int shot2Y = shot2.getY();
 
             if (player.isVisible() && !b.isDestroyed()) {
 
@@ -557,6 +556,14 @@ public class Board extends JPanel implements Runnable, Commons {
                         && shot.isVisible()) {
                     shield.reduceLives();
                     shot.die();
+                }
+                if (shot2X >= (shieldX) && shield.isVisible()
+                        && shot2X <= (shieldX + shield.getWidth())
+                        && shot2Y <= (shieldY + 3.5 * (SHIELD_HEIGHT))
+                        && shot2Y > (shieldY)
+                        && shot2.isVisible()) {
+                    shield.reduceLives();
+                    shot2.die();
                 }
             }
 
@@ -656,11 +663,12 @@ public class Board extends JPanel implements Runnable, Commons {
             if (key == KeyEvent.VK_SPACE) {
 
                 if (ingame) {
-                    if (!shot.isVisible()) {
-                        shot = new Shot(x, y);
+                    if (!shot.isVisible() && !doubleDamage) {
+                        shot = new Shot(x+6, y);
                     }
                     if(doubleDamage && !shot2.isVisible()){
-                        shot2 = new Shot(x+10, y);
+                        shot = new Shot(x-5, y);
+                        shot2 = new Shot(x+18, y);
                     }
                 }
             }
