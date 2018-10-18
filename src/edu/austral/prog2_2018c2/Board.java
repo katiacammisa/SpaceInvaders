@@ -99,15 +99,15 @@ public class Board extends JPanel implements Runnable, Commons {
                 int answer = rn.nextInt((3-1)+1) + 1;
                 switch(answer) {
                     case 1:
-                        Alien smallAlien = new Alien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i, AlienType.SmallAlien);
+                        Alien smallAlien = new Alien(ALIEN_INIT_X + 25 * j, ALIEN_INIT_Y + 22 * i, AlienType.SmallAlien);
                         aliens.add(smallAlien);
                         break;
                     case 2:
-                        Alien mediumAlien = new Alien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i, AlienType.MediumAlien);
+                        Alien mediumAlien = new Alien(ALIEN_INIT_X + 25 * j, ALIEN_INIT_Y + 22 * i, AlienType.MediumAlien);
                         aliens.add(mediumAlien);
                         break;
                     case 3:
-                        Alien bigAlien = new Alien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i, AlienType.BigAlien);
+                        Alien bigAlien = new Alien(ALIEN_INIT_X + 25 * j, ALIEN_INIT_Y + 22 * i, AlienType.BigAlien);
                         aliens.add(bigAlien);
                         break;
                 }
@@ -115,8 +115,8 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         shields = new ArrayList<Shield>();
-        for (int i = 0; i < shieldAmount; i++) {
-            Shield shield = new Shield(SHIELD_INIT_X + 80 * i,SHIELD_INIT_Y);
+        for (int i = 1; i <= shieldAmount; i++) {
+            Shield shield = new Shield(((BOARD_WIDTH / shieldAmount)*i - (BOARD_WIDTH/shieldAmount)/2) - 15,SHIELD_INIT_Y);
             shields.add(shield);
         }
 
@@ -319,22 +319,16 @@ public class Board extends JPanel implements Runnable, Commons {
 
         long timing = System.currentTimeMillis() - UfoTimer;
 
-        if(timing >= 7000 && timing <= 50000) {
-            random =(int) (Math.random()*10)+ 1;
-        }
-        if(timing > 50000 && timing <= 55000){
-            random = (int)(Math.random()*10)+ 1;
-        }
-        if(timing > 55000 && timing <= 60000){
-            random = (int) (Math.random()*10)+ 1;
-        }
-        if(timing > 60000){
-            random = 1;
-        }
-
         if(random == 1){
             UFO.act(2);
             UfoTimer = System.currentTimeMillis();
+        } else {
+            if (timing >= 7000 && timing <= 60000) {
+                random = (int) (Math.random() * 30) + 1;
+            }
+            if (timing > 60000) {
+                random = 1;
+            }
         }
 
         if(UFO.getX() > BOARD_WIDTH){
@@ -342,7 +336,6 @@ public class Board extends JPanel implements Runnable, Commons {
             UFO.die();
         }
 
-        //Graphics g = this.getGraphics();
         Iterator alin = aliens.iterator();
         int counter = 0;
         while (alin.hasNext()){
@@ -359,7 +352,7 @@ public class Board extends JPanel implements Runnable, Commons {
                 delayInSeconds(2);
                 int count = 0;                              //Desde aca
                 for (int i = 0; i < shieldAmount; i++) {
-                    if (shields.get(i) != null) {
+                    if (shields.get(i).isVisible()) {
                         count++;
                     }
                 }
