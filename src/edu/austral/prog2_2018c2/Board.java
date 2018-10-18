@@ -39,7 +39,9 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private long UfoTimer;
 
-    private boolean doubleDamage = false;
+    private boolean doubleDamage;
+    private boolean inmunity;
+    private boolean freeze;
     private boolean ingame = true;
     private boolean ufoOn = false;
     private final String explImg = "src/images/explosion.png";
@@ -339,10 +341,9 @@ public class Board extends JPanel implements Runnable, Commons {
             random = 0;
             UfoTimer = System.currentTimeMillis();
             UFO.die();
-            Alien UFO = new Alien(-25, 25, AlienType.UFO);
         }
 
-        Graphics g = this.getGraphics();
+        //Graphics g = this.getGraphics();
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
             levelCounter++;
@@ -406,6 +407,42 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
+        if (shot2.isVisible()) {
+
+            int shotX = shot2.getX();
+            int shotY = shot2.getY();
+            for (Alien alien : aliens) {
+
+                int alienX = alien.getX();
+                int alienY = alien.getY();
+
+                if (alien.isVisible() && shot2.isVisible()) {
+                    if (shotX >= (alienX)
+                            && shotX <= (alienX + ALIEN_WIDTH)
+                            && shotY >= (alienY)
+                            && shotY <= (alienY + ALIEN_HEIGHT)) {
+                        ImageIcon ii = new ImageIcon(explImg);
+                        alien.setImage(ii.getImage());
+                        alien.setDying(true);
+                        if(alien.isDying()) {
+                            deaths++;
+                            shot2.die();
+                        }
+                    }
+                }
+            }
+
+            int y = shot2.getY();
+            y -= 4;
+
+            if (y < 0) {
+                shot2.die();
+                shotCounter = 0;
+            } else {
+                shot2.setY(y);
+            }
+        }
+
         // aliens
 
         for (Alien alien : aliens) {
@@ -453,11 +490,17 @@ public class Board extends JPanel implements Runnable, Commons {
                     message = "Invasion!";
                 }
 
-                alien.act(direction);
+                if(!freeze) {
+                    alien.act(direction);
+                }
+                if(freeze){
+                    alien.act(0);
+                }
             }
         }
 
         // bombs
+        if(!freeze){
         Random generator = new Random();
 
         for (Iterator<Alien> iterator = aliens.iterator(); iterator.hasNext(); ) {
@@ -486,9 +529,9 @@ public class Board extends JPanel implements Runnable, Commons {
                         && bombX <= (playerX + PLAYER_WIDTH)
                         && bombY >= (playerY)
                         && bombY <= (playerY + PLAYER_HEIGHT)) {
-                    ImageIcon ii = new ImageIcon(explImg);
-                    player.setImage(ii.getImage());
-                    player.setDying(true);
+                    if (!inmunity) {
+                        player.setDying(true);
+                    }
                     b.setDestroyed(true);
                 }
             }
@@ -536,32 +579,24 @@ public class Board extends JPanel implements Runnable, Commons {
                     b.setDestroyed(true);
                 }
             }
+        }
 
-            if (shotCounter == 4) {                                          //DESDE ACA
-                shotCounter = 0;
-                PowerUp powerUp = new PowerUp();
-                player.setPowerUp(powerUp);
-                System.out.println(powerUp.getName());
-                if (powerUp.getName().equals("Immunity")) {
-                    if (player.isVisible() && !b.isDestroyed()) {
-                        if (bombX >= (playerX)
-                                && bombX <= (playerX + PLAYER_WIDTH)
-                                && bombY >= (playerY)
-                                && bombY <= (playerY + PLAYER_HEIGHT)) {
-                            ImageIcon ii = new ImageIcon(explImg);
-                            player.setImage(ii.getImage());
-                            player.setDying(false);
-                            b.setDestroyed(true);
-                        }
-                    }
-                } else if (powerUp.getName().equals("Double Damage")) {
-                    doubleDamage = true;
+        }
 
-                } else if (powerUp.getName().equals("Freeze")) {
-                    alien.act(0);
-                }
+        //PowerUps
+        if (shotCounter == 4) {                                          //DESDE ACA
+            shotCounter = 0;
+            PowerUp powerUp = new PowerUp();
+            player.setPowerUp(powerUp);
+            System.out.println(powerUp.getName());
+            if (powerUp.getName().equals("Immunity")) {
+                inmunity = true;
+            } else if (powerUp.getName().equals("Double Damage")) {
+                doubleDamage = true;
+
+            } else if (powerUp.getName().equals("Freeze")) {
+                freeze = true;
             }
-
         }
 
     }
@@ -625,7 +660,7 @@ public class Board extends JPanel implements Runnable, Commons {
                         shot = new Shot(x, y);
                     }
                     if(doubleDamage && !shot2.isVisible()){
-                        shot = new Shot(x+4, y+4);
+                        shot2 = new Shot(x+10, y);
                     }
                 }
             }
