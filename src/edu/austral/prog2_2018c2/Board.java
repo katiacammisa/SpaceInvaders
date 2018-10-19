@@ -255,6 +255,18 @@ public class Board extends JPanel implements Runnable, Commons {
             drawShot(g);
             drawBombing(g);
             drawUFO(g);
+
+            FontMetrics metrics = this.getFontMetrics(small);
+            g.setColor(new Color(151, 14, 179));
+            if(doubleDamage){
+                g.drawString("Double Damage On!", (BOARD_WIDTH - metrics.stringWidth("Double Damage On!"))/ 2 , GROUND+25);
+            }
+            if(inmunity){
+                g.drawString("Inmunity On!", (BOARD_WIDTH - metrics.stringWidth("Inmunity On!"))/ 2 , GROUND+25);
+            }
+            if(freeze){
+                g.drawString("Freeze!", (BOARD_WIDTH - metrics.stringWidth("Freeze!"))/ 2 , GROUND+25);
+            }
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -291,15 +303,17 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2 - 5);
         g.setFont(smalleano);
-        if(player.getLives() == 3){
-            scoring.sumPoints(300);
-        }
-        if(player.getLives() == 2){
-            scoring.sumPoints(200);
-        }
-        if(player.getLives() == 1){
-            scoring.sumPoints(100);
-        }
+
+        scoring.sumPoints(player.getLives()*100);
+//        if(player.getLives() == 3){
+//            scoring.sumPoints(300);
+//        }
+//        if(player.getLives() == 2){
+//            scoring.sumPoints(200);
+//        }
+//        if(player.getLives() == 1){
+//            scoring.sumPoints(100);
+//        }
         g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
         textFile.run(scoring.getScore());
     }

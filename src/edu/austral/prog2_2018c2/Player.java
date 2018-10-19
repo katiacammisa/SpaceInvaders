@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 public class Player extends Sprite implements Commons {
 
     private final int START_Y = 319;// Cambie la posicion inicial
-    private final int START_X = 51; //
+    private final int START_X = 30; //
     private int lives;
     private String playerImg = "src/images/Player2.png";
     private PowerUp powerUp;
