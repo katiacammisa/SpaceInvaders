@@ -306,7 +306,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
         scoring.sumPoints(player.getLives()*100);
         g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
-
         textFile.run(scoring.getScore());
     }
 
