@@ -305,15 +305,6 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setFont(smalleano);
 
         scoring.sumPoints(player.getLives()*100);
-//        if(player.getLives() == 3){
-//            scoring.sumPoints(300);
-//        }
-//        if(player.getLives() == 2){
-//            scoring.sumPoints(200);
-//        }
-//        if(player.getLives() == 1){
-//            scoring.sumPoints(100);
-//        }
         g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
         //g.drawString("Enter your name ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 40);
         //g.drawString("and surname: ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 58);
@@ -342,7 +333,7 @@ public class Board extends JPanel implements Runnable, Commons {
             UFO.act(2);
             UfoTimer = System.currentTimeMillis();
         } else {
-            if (timing >= 7000 && timing <= 60000) {
+            if (timing >= 45000 && timing <= 60000) {
                 random = (int) (Math.random() * 30) + 1;
             }
             if (timing > 60000) {
