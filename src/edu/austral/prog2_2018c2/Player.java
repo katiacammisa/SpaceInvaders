@@ -81,8 +81,8 @@ public class Player extends Sprite implements Commons {
             x = 2;
         }
 
-        if (x >= BOARD_WIDTH - width) {
-            x = BOARD_WIDTH - width;
+        if (x >= BOARD_WIDTH - 2 * width) {
+            x = BOARD_WIDTH - 2 * width;
         }
     }
 
