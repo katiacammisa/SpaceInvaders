@@ -42,7 +42,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private long UfoTimer;
 
     private boolean doubleDamage;
-    private boolean inmunity;
+    private boolean immunity;
     private boolean freeze;
     private boolean ingame = true;
     private boolean ufoOn = false;
@@ -217,7 +217,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    public void drawUFO(Graphics g) {  //Bienvenido sea UFO que no se digna a aparecer
+    public void drawUFO(Graphics g) {
         if(UFO.isVisible()) {
             g.drawImage(UFO.getImage(), UFO.getX(), UFO.getY(), this);
         }
@@ -261,8 +261,8 @@ public class Board extends JPanel implements Runnable, Commons {
             if(doubleDamage){
                 g.drawString("Double Damage On!", (BOARD_WIDTH - metrics.stringWidth("Double Damage On!"))/ 2 , GROUND+25);
             }
-            if(inmunity){
-                g.drawString("Inmunity On!", (BOARD_WIDTH - metrics.stringWidth("Inmunity On!"))/ 2 , GROUND+25);
+            if(immunity){
+                g.drawString("Immunity On!", (BOARD_WIDTH - metrics.stringWidth("Immunity On!"))/ 2 , GROUND+25);
             }
             if(freeze){
                 g.drawString("Freeze!", (BOARD_WIDTH - metrics.stringWidth("Freeze!"))/ 2 , GROUND+25);
@@ -291,7 +291,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         g.setColor(new Color(64, 255, 21));
-        g.fillRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80); //30
+        g.fillRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80);
         g.setColor(Color.white);
         g.drawRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80);
 
@@ -315,6 +315,9 @@ public class Board extends JPanel implements Runnable, Commons {
 //            scoring.sumPoints(100);
 //        }
         g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
+        //g.drawString("Enter your name ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 40);
+        //g.drawString("and surname: ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 58);
+
         textFile.run(scoring.getScore());
     }
 
@@ -356,7 +359,7 @@ public class Board extends JPanel implements Runnable, Commons {
         int counter = 0;
         while (alin.hasNext()){
             Alien alien = (Alien) alin.next();
-            if(alien.isVisible() == false){
+            if(!alien.isVisible()){
                 counter++;
             }
         }
@@ -543,7 +546,7 @@ public class Board extends JPanel implements Runnable, Commons {
                             && bombX <= (playerX + PLAYER_WIDTH)
                             && bombY >= (playerY)
                             && bombY <= (playerY + PLAYER_HEIGHT)) {
-                        if (!inmunity) {
+                        if (!immunity) {
                             player.setDying(true);
                         }
                         b.setDestroyed(true);
@@ -611,11 +614,11 @@ public class Board extends JPanel implements Runnable, Commons {
             player.setPowerUp(powerUp);
             System.out.println(powerUp.getName());
             if (powerUp.getName().equals("Immunity")) {
-                inmunity = true;
+                immunity = true;
                 TimerTask task = new TimerTask() {
                     @Override
                     public void run() {
-                        inmunity = false;
+                        immunity = false;
                         player.setPowerUp(null);
                     }
                 };
