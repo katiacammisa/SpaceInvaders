@@ -1,29 +1,36 @@
 package edu.austral.prog2_2018c2;
 
 
-    import java.io.BufferedWriter;
-    import java.io.FileWriter;
-    import java.io.IOException;
+    import java.io.*;
+    import java.util.ArrayList;
 
 
 public class TextFile {
 
-        private static final String FILENAME = "D:\\AleGG\\SpaceInvaders\\Scores.txt";
+        public static final String FILENAME = "D:\\AleGG\\SpaceInvaders\\Scores.txt";
 
 
-        public void run(int score) {
+        public void run(String player, int score) {
 
             BufferedWriter bw = null;
+            BufferedReader br;
             FileWriter fw = null;
-
+            FileReader fr;
+            PrintWriter pw;
+            ArrayList <String> scoring = new ArrayList<String>();
+                scoring.add(player + " " + score);
 
             try {
 
-                String content = Scanner.getString("Enter your name and your surname: ") + " " + score;
-
                 fw = new FileWriter(FILENAME);
                 bw = new BufferedWriter(fw);
-                bw.write(content);
+                fr = new FileReader(FILENAME);
+                br = new BufferedReader(fr);
+                pw = new PrintWriter(bw);
+                for(int n = 0; n <= scoring.size(); n++){
+                    pw.write(scoring.get(n));
+                    String[] spliteado = scoring.get(n).split(":");
+                }
 
                 System.out.println("Done");
 
@@ -50,6 +57,5 @@ public class TextFile {
             }
 
         }
-
-    }
+}
 
