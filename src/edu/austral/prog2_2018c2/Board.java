@@ -309,7 +309,7 @@ public class Board extends JPanel implements Runnable, Commons {
         //g.drawString("Enter your name ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 40);
         //g.drawString("and surname: ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 58);
 
-        textFile.run(scoring.getScore());
+        textFile.run("Aca va el nombre", scoring.getScore());
     }
 
     public void drawLevelPass(){  // esto es nuevo
