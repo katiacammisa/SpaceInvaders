@@ -22,6 +22,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private Alien UFO;
     private HighScore highScore = new HighScore();
     private Timer timer = new Timer();
+    private Audio audio = new Audio("/sound/cancion.wav");
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 45;
@@ -131,6 +132,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         random = 0;
+        audio.play();
     }
 
     public void drawAliens(Graphics g) {
@@ -468,6 +470,8 @@ public class Board extends JPanel implements Runnable, Commons {
                     a2.setY(a2.getY() + GO_DOWN);
                 }
             }
+
+
 
             if (x <= BORDER_LEFT && direction != 1) {
 

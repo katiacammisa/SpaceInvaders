@@ -17,5 +17,4 @@ public interface Commons {
     public static final int SHIELD_HEIGHT = 8;
     public static final int UFO_HEIGHT = 8;
     public static final int UFO_WIDTH = 25;
-
 }
