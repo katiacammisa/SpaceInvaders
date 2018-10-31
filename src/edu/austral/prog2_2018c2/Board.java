@@ -144,7 +144,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
             if (alien.isDying() && !alien.isDead()) {
                 alien.die();
-                //it.remove();
                 scoring.sumPoints(alien.getPoints());
                 System.out.println(scoring.getScore());
             }
@@ -172,7 +171,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    public void drawShield(Graphics g) { //saque el for, para usar iterator
+    public void drawShield(Graphics g) {
 
         Iterator<Shield> it = shields.iterator();
         while(it.hasNext())
@@ -181,7 +180,7 @@ public class Board extends JPanel implements Runnable, Commons {
             if (shield.isVisible()) {
                 g.drawImage(shield.getImage(), shield.getX(), shield.getY(), this);
             }
-            if(shield.isDying()) //Esto es nuevo
+            if(shield.isDying())
             {
                 shield.die();
                 it.remove();
@@ -304,15 +303,16 @@ public class Board extends JPanel implements Runnable, Commons {
         scoring.sumPoints(player.getLives()*100);
         g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
         scoring.sumPoints(player.getLives()*100);
+
         Panel panel = new Panel(scoring.getScore());
 
         //g.drawString("Enter your name ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 40);
         //g.drawString("and surname: ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 58);
 
-        highScore.run("Aca va el nombre", scoring.getScore());
+        //highScore.run("Aca va el nombre", scoring.getScore());
     }
 
-    public void drawLevelPass(){  // esto es nuevo
+    public void drawLevelPass(){
 
         Graphics g = this.getGraphics();
 
@@ -360,13 +360,13 @@ public class Board extends JPanel implements Runnable, Commons {
             if (levelCounter <= levels) {
                 drawLevelPass();
                 delayInSeconds(2);
-                int count = 0;                              //Desde aca
+                int count = 0;
                 for (int i = 0; i < shieldAmount; i++) {
                     if (shields.get(i).isVisible()) {
                         count++;
                     }
                 }
-                shieldAmount = count - 1;                   //Hasta aca hace que vayan bajando los Shields
+                shieldAmount = count - 1;
                 delay -= 2;
                 initBoard();
                 deaths = 0;

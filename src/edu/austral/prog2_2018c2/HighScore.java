@@ -8,6 +8,7 @@ package edu.austral.prog2_2018c2;
 public class HighScore {
 
         public static final String FILENAME = "D:\\AleGG\\SpaceInvaders\\Scores.txt";
+        private static ArrayList<String> scoring;
 
 
         public void run(String player, int score) {
@@ -17,8 +18,7 @@ public class HighScore {
             FileWriter fw = null;
             FileReader fr;
             PrintWriter pw;
-            ArrayList <String> scoring = new ArrayList<String>();
-                scoring.add(player + " " + score);
+            scoring = new ArrayList<String>();
 
             try {
 
@@ -56,6 +56,10 @@ public class HighScore {
 
             }
 
+        }
+
+        public static ArrayList<String> getScoring(){
+            return scoring;
         }
 }
 
