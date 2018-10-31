@@ -2,14 +2,11 @@ package edu.austral.prog2_2018c2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-import java.awt.image.ImageObserver;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,7 +20,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private Shot shot2;
     private Scoring scoring;
     private Alien UFO;
-    private TextFile textFile = new TextFile();
+    private HighScore highScore = new HighScore();
     private Timer timer = new Timer();
 
     private final int ALIEN_INIT_X = 150;
@@ -307,13 +304,12 @@ public class Board extends JPanel implements Runnable, Commons {
         scoring.sumPoints(player.getLives()*100);
         g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
         scoring.sumPoints(player.getLives()*100);
-        Panel panel = new Panel();
-        textFile.run(scoring.getScore());
+        Panel panel = new Panel(scoring.getScore());
 
         //g.drawString("Enter your name ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 40);
         //g.drawString("and surname: ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 58);
 
-        textFile.run("Aca va el nombre", scoring.getScore());
+        highScore.run("Aca va el nombre", scoring.getScore());
     }
 
     public void drawLevelPass(){  // esto es nuevo
@@ -541,7 +537,7 @@ public class Board extends JPanel implements Runnable, Commons {
                             && bombX <= (playerX + PLAYER_WIDTH)
                             && bombY >= (playerY)
                             && bombY <= (playerY + PLAYER_HEIGHT)) {
-                        if (!inmunity) {
+                        if (!immunity) {
                             player.setDying(true);
                         }
                         b.setDestroyed(true);
