@@ -18,7 +18,7 @@ public class HighScore {
             FileWriter fw = null;
             FileReader fr;
             PrintWriter pw;
-            scoring = new ArrayList<String>();
+
 
             try {
 
@@ -28,9 +28,14 @@ public class HighScore {
                 br = new BufferedReader(fr);
                 pw = new PrintWriter(bw);
                 for(int n = 0; n <= scoring.size(); n++){
-                    pw.write(scoring.get(n));
-                    String[] spliteado = scoring.get(n).split(":");
+                    pw.write(scoring.get(n) + "\n");
                 }
+                scoring = new ArrayList<String>();
+                for (int i = 0; i < scoring.size() ; i++) {
+                    scoring.add(br.readLine());
+                }
+
+                scoring = ScoreData.creanding();
 
                 System.out.println("Done");
 
