@@ -307,10 +307,6 @@ public class Board extends JPanel implements Runnable, Commons {
         scoring.sumPoints(player.getLives()*100);
 
         Panel panel = new Panel(scoring.getScore());
-
-        //g.drawString("Enter your name ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 40);
-        //g.drawString("and surname: ", (BOARD_WIDTH - metr.stringWidth("Enter your name")) / 2, BOARD_WIDTH / 2 + 58);
-
         //highScore.run("Aca va el nombre", scoring.getScore());
     }
 
