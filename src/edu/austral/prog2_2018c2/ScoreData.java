@@ -15,6 +15,7 @@ public class ScoreData{
         this.name = name;
         this.score = score;
         creanding();
+
     }
 
     public String serialize(){
