@@ -6,18 +6,23 @@ import java.beans.PropertyChangeListener;
 import java.util.*;
 
 public class Panel implements ActionListener {
-        JFrame frame;
-        JPanel buttonPane, fieldsPanel;
-        JLabel cash;
-        JTextField cashField;
-        JButton ok;
 
-        public Panel() {
-            frame = new JFrame("HighScore");
+        private JFrame frame;
+        private JPanel buttonPane, fieldsPanel;
+        private JLabel cash;
+        private JTextField cashField;
+        private JButton ok;
+        private static int score;
+
+        public Panel(Integer score) {
+
+            this.score = score;
+
+            frame = new JFrame("");
             buttonPane = new JPanel();
             fieldsPanel = new JPanel();
             cash = new JLabel("Insert your name:");
-            cashField = new JTextField("");
+            cashField = new JTextField("Player");
             ok = new JButton("OK");
 
             fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
@@ -36,7 +41,7 @@ public class Panel implements ActionListener {
             ok.addActionListener(this);
         }
         public static void main(String args[]) {
-            new Panel();
+            new Panel(score);
         }
 
 
@@ -44,5 +49,6 @@ public class Panel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         frame.setVisible(false);
+        ScoreData data = new ScoreData(cashField.getText(), score);
     }
 }
