@@ -7,8 +7,8 @@ package edu.austral.prog2_2018c2;
 
 public class HighScore {
 
-        public static final String FILENAME = "D:\\AleGG\\SpaceInvaders\\Scores.txt";
-        private static ArrayList<String> scoring;
+        public static final String FILENAME = "\\Desktop\\SpaceInvaders\\Scores.txt";
+        private static ArrayList<String> scoring = new ArrayList<>();
 
 
         public void run(String player, int score) {
@@ -27,15 +27,17 @@ public class HighScore {
                 fr = new FileReader(FILENAME);
                 br = new BufferedReader(fr);
                 pw = new PrintWriter(bw);
-                for(int n = 0; n <= scoring.size(); n++){
-                    pw.write(scoring.get(n) + "\n");
-                }
+
                 scoring = new ArrayList<String>();
                 for (int i = 0; i < scoring.size() ; i++) {
                     scoring.add(br.readLine());
                 }
 
                 scoring = ScoreData.creanding();
+
+                for(int n = 0; n <= scoring.size(); n++){
+                    pw.write(scoring.get(n) + "\n");
+                }
 
                 System.out.println("Done");
 

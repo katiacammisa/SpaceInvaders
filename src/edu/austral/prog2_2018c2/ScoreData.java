@@ -10,7 +10,6 @@ public class ScoreData{
 
     private static String name;
     private static int score;
-    static ArrayList <String> hS = HighScore.getScoring();
 
     public ScoreData(String name, int score) {
         this.name = name;
@@ -37,6 +36,7 @@ public class ScoreData{
     }
 
     public static ArrayList<String> creanding(){
+        ArrayList <String> hS = HighScore.getScoring();
         ArrayList<ScoreData> listeana = new ArrayList<>();
 
         for (int n = 0; n < 10; n++){
