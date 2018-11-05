@@ -2,6 +2,8 @@ package edu.austral.prog2_2018c2;
 
 
     import java.io.*;
+    import java.io.InputStream;
+    import java.io.InputStreamReader;
     import java.util.ArrayList;
 
 
@@ -19,8 +21,8 @@ public class HighScore {
             FileReader fr;
             PrintWriter pw;
 
-
             try {
+
                 fw = new FileWriter(FILENAME, true);
                 bw = new BufferedWriter(fw);
                 fr = new FileReader(FILENAME);
@@ -28,12 +30,17 @@ public class HighScore {
                 pw = new PrintWriter(bw);
 
                 scoring = new ArrayList<String>();
+
                 String thisLine;
-                while((thisLine=br.readLine()) != null) {
+
+                while ((thisLine = br.readLine()) != null) {
                     scoring.add(thisLine);
                 }
+                br.close();
+
                 scoring = ScoreData.creanding();
-                for(int n = 0; n <= scoring.size(); n++){
+
+                for(int n = 0; n < scoring.size(); n++){
                     pw.write(scoring.get(n) + "\n");
                 }
 
@@ -66,5 +73,9 @@ public class HighScore {
         public static ArrayList<String> getScoring(){
             return scoring;
         }
+
+    public static void main(String[] args) {
+        new HighScore().run();
+    }
 }
 

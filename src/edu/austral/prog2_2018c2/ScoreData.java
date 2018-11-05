@@ -39,14 +39,14 @@ public class ScoreData{
         ArrayList <String> hS = HighScore.getScoring();
         ArrayList<ScoreData> listeana = new ArrayList<>();
 
-        for (int n = 0; n < 10; n++){
-           ScoreData data = deserialize(hS.get(n));
-           listeana.set(n, data);
+        for (int n = 0; n < hS.size(); n++){
+            ScoreData data = deserialize(hS.get(n));
+            listeana.add(data);
         }
-        listeana.add(new ScoreData(name, score));
+        listeana.add(PanelPlayer.getScoreData());
         ScoreData aux;
         for (int i = 0; i <listeana.size() ; i++) {
-            for (int j = 0; j < listeana.size() - i; j++) {
+            for (int j = 1; j < listeana.size() - i; j++) {
                 if(listeana.get(j-1).getScore() > listeana.get(j).getScore()) {
                     aux = listeana.get(j-1);
                     listeana.set(j-1 ,listeana.get(j));

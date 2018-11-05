@@ -2,10 +2,8 @@ package edu.austral.prog2_2018c2;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.beans.PropertyChangeListener;
-import java.util.*;
 
-public class Panel implements ActionListener {
+public class PanelPlayer implements ActionListener {
 
         private JFrame frame;
         private JPanel buttonPane, fieldsPanel;
@@ -13,8 +11,10 @@ public class Panel implements ActionListener {
         private JTextField cashField;
         private JButton ok;
         private static int score;
+        private boolean isOk;
+        private static ScoreData scoreData;
 
-        public Panel(Integer score) {
+        public PanelPlayer(Integer score) {
 
             this.score = score;
 
@@ -41,7 +41,7 @@ public class Panel implements ActionListener {
             ok.addActionListener(this);
         }
         public static void main(String args[]) {
-            new Panel(score);
+            new PanelPlayer(score);
         }
 
 
@@ -49,6 +49,15 @@ public class Panel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         frame.setVisible(false);
-        ScoreData data = new ScoreData(cashField.getText(), score);
+        scoreData = new ScoreData(cashField.getText(), score);
+        isOk = true;
+    }
+
+    public boolean isOk(){
+            return isOk;
+    }
+
+    public static ScoreData getScoreData() {
+        return scoreData;
     }
 }

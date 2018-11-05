@@ -274,7 +274,7 @@ public class Board extends JPanel implements Runnable, Commons {
         g.dispose();
     }
 
-    public void gameOver() {
+    public void gameOver(){
 
         Graphics g = this.getGraphics();
 
@@ -309,7 +309,8 @@ public class Board extends JPanel implements Runnable, Commons {
         g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
         scoring.sumPoints(player.getLives()*100);
 
-        Panel panel = new Panel(scoring.getScore());
+        PanelPlayer panel = new PanelPlayer(scoring.getScore());
+        while (panel.isOk()){}
         highScore.run();
     }
 
