@@ -10,9 +10,9 @@ public class PanelPlayer implements ActionListener {
         private JLabel cash;
         private JTextField cashField;
         private JButton ok;
-        private static int score;
+        private int score;
         private boolean isOk;
-        private static ScoreData scoreData;
+        private ScoreData scoreData;
 
         public PanelPlayer(Integer score) {
 
@@ -37,11 +37,7 @@ public class PanelPlayer implements ActionListener {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
             frame.setBounds(542, 150, 357, 100);
-
             ok.addActionListener(this);
-        }
-        public static void main(String args[]) {
-            new PanelPlayer(score);
         }
 
 
@@ -57,7 +53,7 @@ public class PanelPlayer implements ActionListener {
             return isOk;
     }
 
-    public static ScoreData getScoreData() {
+    public ScoreData getScoreData() {
         return scoreData;
     }
 }

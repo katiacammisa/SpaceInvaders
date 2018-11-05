@@ -5,44 +5,31 @@ package edu.austral.prog2_2018c2;
     import java.io.InputStream;
     import java.io.InputStreamReader;
     import java.util.ArrayList;
+    import java.util.Comparator;
+    import java.util.List;
 
 
 public class HighScore {
 
         public static final String FILENAME = "Scores.txt";
-        private static ArrayList<String> scoring = new ArrayList<>();
+
+        public static void run(ScoreData newScoreData) {
 
 
-        public void run() {
-
-            BufferedWriter bw = null;
-            BufferedReader br;
-            FileWriter fw = null;
-            FileReader fr;
-            PrintWriter pw;
 
             try {
 
-                fw = new FileWriter(FILENAME, true);
-                bw = new BufferedWriter(fw);
-                fr = new FileReader(FILENAME);
-                br = new BufferedReader(fr);
-                pw = new PrintWriter(bw);
+                List<ScoreData> scoring = read();
+                scoring.add(newScoreData);
 
-                scoring = new ArrayList<String>();
+                scoring.sort(new Comparator<ScoreData>() {
+                    @Override
+                    public int compare(ScoreData o1, ScoreData o2) {
+                        return Integer.compare(o2.getScore(), o1.getScore());
+                    }
+                });
 
-                String thisLine;
-
-                while ((thisLine = br.readLine()) != null) {
-                    scoring.add(thisLine);
-                }
-                br.close();
-
-                scoring = ScoreData.creanding();
-
-                for(int n = 0; n < scoring.size(); n++){
-                    pw.write(scoring.get(n) + "\n");
-                }
+                write(scoring);
 
                 System.out.println("Done");
 
@@ -50,32 +37,40 @@ public class HighScore {
 
                 e.printStackTrace();
 
-            } finally {
-
-                try {
-
-                    if (bw != null)
-                        bw.close();
-
-                    if (fw != null)
-                        fw.close();
-
-                } catch (IOException ex) {
-
-                    ex.printStackTrace();
-
-                }
-
             }
 
         }
 
-        public static ArrayList<String> getScoring(){
+        public static List<ScoreData> read() throws IOException {
+            FileReader fr = new FileReader(FILENAME);
+            BufferedReader br = new BufferedReader(fr);
+
+            List<ScoreData> scoring = new ArrayList<>();
+
+            String thisLine;
+            while ((thisLine = br.readLine()) != null) {
+                scoring.add(new ScoreData(thisLine));
+            }
+            br.close();
+
             return scoring;
         }
 
-    public static void main(String[] args) {
-        new HighScore().run();
-    }
+        public static void write(List<ScoreData> scoring) throws IOException {
+            FileWriter fw = new FileWriter(FILENAME);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            if(scoring.size() >= 10) {
+                for (int i = 10; i < scoring.size(); i++) {
+                    scoring.remove(i);
+                }
+            }
+
+            for (int i = 0; i < scoring.size(); i++) {
+                bw.write(scoring.get(i).serialize() + "\n");
+            }
+            bw.close();
+        }
+
 }
 

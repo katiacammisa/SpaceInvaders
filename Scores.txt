@@ -1,1 +1,10 @@
+Ale: 1000
+Katy: 430
+katy: 50
 Player: 40
+katy: 40
+katy: 40
+katy: 40
+ale: 40
+ale: 40
+Player: 30

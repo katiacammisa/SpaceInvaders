@@ -20,8 +20,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private Shot shot2;
     private Scoring scoring;
     private Alien UFO;
-    private HighScore highScore;
-    private Timer timer;
+    private Timer timer = new Timer();
     private Audio audio;
 
     private final int ALIEN_INIT_X = 150;
@@ -51,11 +50,11 @@ public class Board extends JPanel implements Runnable, Commons {
 
     public Board() {
 
-        initBoard();
+
         player = new Player();
         audio = new Audio("/sound/cancion.wav");
         scoring = new Scoring();
-        highScore = new HighScore();
+        initBoard();
     }
 
     public int getLevels() {
@@ -310,8 +309,14 @@ public class Board extends JPanel implements Runnable, Commons {
         scoring.sumPoints(player.getLives()*100);
 
         PanelPlayer panel = new PanelPlayer(scoring.getScore());
-        while (panel.isOk()){}
-        highScore.run();
+        while (!panel.isOk()){
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        HighScore.run(panel.getScoreData());
     }
 
     public void drawLevelPass(){
