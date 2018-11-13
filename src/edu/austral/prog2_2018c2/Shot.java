@@ -10,6 +10,7 @@ public class Shot extends Sprite {
     private int delay = 7;
 
     public Shot() {
+
     }
 
     public Shot(int x, int y) {
@@ -25,6 +26,8 @@ public class Shot extends Sprite {
         setX(x + H_SPACE);
         setY(y - V_SPACE);
     }
+
+
 
     public int getDelay() {
         return delay;

@@ -70,6 +70,5 @@ public class HighScore {
             }
             bw.close();
         }
-
 }
 

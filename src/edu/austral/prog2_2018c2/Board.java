@@ -2,15 +2,13 @@ package edu.austral.prog2_2018c2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Board extends JPanel implements Runnable, Commons {
+public class Board extends Drawer implements Runnable, Commons {
 
     private Dimension d;
     private ArrayList<Alien> aliens;
@@ -18,7 +16,6 @@ public class Board extends JPanel implements Runnable, Commons {
     private Player player;
     private Shot shot;
     private Shot shot2;
-    private Scoring scoring;
     private Alien UFO;
     private Timer timer = new Timer();
     private Audio audio;
@@ -30,11 +27,12 @@ public class Board extends JPanel implements Runnable, Commons {
     private int direction = -1;
     private int deaths = 0;
     private int levels = 5;
-    private int levelCounter = 1;
     private int delay = 15;
     private int shieldAmount = 4;   //Nueva variable
     private int random = 0;
     private int shotCounter = 0;
+    private int levelCounter = 1;
+    private int scoring;
 
     private long UfoTimer;
 
@@ -50,25 +48,19 @@ public class Board extends JPanel implements Runnable, Commons {
 
     public Board() {
 
-
         player = new Player();
         audio = new Audio("/sound/cancion.wav");
-        scoring = new Scoring();
         initBoard();
     }
 
-    public int getLevels() {
-        return levels;
-    }
+    private void initBoard() { //Crea el board, lo grafica
 
-    private void initBoard() { //Crea el board, lo grafico
-
-        addKeyListener(new TAdapter());
         setFocusable(true);
         d = new Dimension(BOARD_WIDTH, BOARD_HEIGHT);
         setBackground(Color.black);
 
         gameInit();
+        addKeyListener(new TAdapter(player, shot, shot2, ingame, doubleDamage));
         setDoubleBuffered(true);
     }
 
@@ -77,10 +69,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
         super.addNotify();
         gameInit();
-    }
-
-    public int getShotCounter() {
-        return shotCounter;
     }
 
     public void delayInSeconds(int time){ // Para frenar el juego cuando pasamos de nivel
@@ -135,180 +123,35 @@ public class Board extends JPanel implements Runnable, Commons {
 
         random = 0;
         audio.play();
+
+        setAliens(aliens);
+        setPlayer(player);
+        setShields(shields);
+        setShot(shot);
+        setShot2(shot2);
+        setUFO(UFO);
     }
 
-    public void drawAliens(Graphics g) {
-
-        Iterator<Alien> it = aliens.iterator();
-        while (it.hasNext()){
-            Alien alien = it.next();
-            if (alien.isVisible()) {
-                g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
-            }
-
-            if (alien.isDying() && !alien.isDead()) {
-                alien.die();
-                scoring.sumPoints(alien.getPoints());
-                System.out.println(scoring.getScore());
-            }
-        }
-    }
-
-    public void drawPlayer(Graphics g) {
-
-        if (player.isVisible()) {
-            g.drawImage(player.getImage(), player.getX(), player.getY(), this);
-        }
-
-        if (player.isDying()) {
-
-            if (player.hasLivesLeft()) {
-                player.reduceLives();
-                player.setDying(false);
-                player.initPlayer();
-                player.setVisible(true);
-            } else {
-                player.die();
-                message = "Game Over :(";
-                ingame = false;
-            }
-        }
-    }
-
-    public void drawShield(Graphics g) {
-
-        Iterator<Shield> it = shields.iterator();
-        while(it.hasNext())
-        {
-            Shield shield = it.next();
-            if (shield.isVisible()) {
-                g.drawImage(shield.getImage(), shield.getX(), shield.getY(), this);
-            }
-            if(shield.isDying())
-            {
-                shield.die();
-                it.remove();
-            }
-        }
-    }
-
-    public void drawShot(Graphics g) {
-
-        if (shot.isVisible()) {
-
-            g.drawImage(shot.getImage(), shot.getX(), shot.getY(), this);
-        }
-        if (shot2.isVisible()) {
-
-            g.drawImage(shot2.getImage(), shot2.getX(), shot2.getY(), this);
-        }
-    }
-
-    public void drawBombing(Graphics g) {
-
-        for (Alien a : aliens) {
-
-            Alien.Bomb b = a.getBomb();
-
-            if (!b.isDestroyed()) {
-
-                g.drawImage(b.getImage(), b.getX(), b.getY(), this);
-            }
-        }
-    }
-
-    public void drawUFO(Graphics g) {
-        if(UFO.isVisible()) {
-            g.drawImage(UFO.getImage(), UFO.getX(), UFO.getY(), this);
-        }
-        if(UFO.isDying()) {
-            UFO.die();
-            scoring.sumPoints(UFO.getPoints());
-            UFO.setDying(false);
-            UFO.setDying(false);
-        }
-        if(UFO.getX() > BOARD_WIDTH) {
-            UFO.die();
-        }
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g){
+        setIngame(ingame);
+        setD(d);
+        setDoubleDamage(doubleDamage);
+        setImmunity(immunity);
+        setFreeze(freeze);
+        setLevelCounter(levelCounter);
+        setScoring(scoring);
         super.paintComponent(g);
-
-        g.setColor(Color.black);
-        g.fillRect(0, 0, d.width, d.height);
-        g.setColor(Color.green);
-
-        if (ingame) {
-
-            g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
-            g.drawString("Score: " + scoring.getScore(), 10, 12);
-            g.drawString("Lives: " + player.getLives(), 300, 12);
-            Font small = new Font("Helvetica", Font.PLAIN, 17);
-            g.setFont(small);
-            g.drawString("Level: " + levelCounter,147,14);
-            drawAliens(g);
-            drawPlayer(g);
-            drawShield(g);
-            drawShot(g);
-            drawShot(g);
-            drawBombing(g);
-            drawUFO(g);
-
-            FontMetrics metrics = this.getFontMetrics(small);
-            g.setColor(new Color(151, 14, 179));
-            if(doubleDamage){
-                g.drawString("Double Damage On!", (BOARD_WIDTH - metrics.stringWidth("Double Damage On!"))/ 2 , GROUND+25);
-            }
-            if(immunity){
-                g.drawString("Immunity On!", (BOARD_WIDTH - metrics.stringWidth("Immunity On!"))/ 2 , GROUND+25);
-            }
-            if(freeze){
-                g.drawString("Freeze!", (BOARD_WIDTH - metrics.stringWidth("Freeze!"))/ 2 , GROUND+25);
-            }
-        }
-
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
     }
 
     public void gameOver(){
 
+        scoring += player.getLives()*100;
+
         Graphics g = this.getGraphics();
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+        gameOver(g, scoring, message);
 
-        Image cat;
-
-        if(message.equals("Game Over :(")|| message.equals("Invasion!")) {
-            cat = new ImageIcon("src/images/gatito.jpg").getImage();
-            g.drawImage(cat, 0, 0, null);
-        } else {
-            cat = new ImageIcon("src/images/gatito2.jpg").getImage();
-            g.drawImage(cat, 0, 0, null);
-        }
-
-        g.setColor(new Color(64, 255, 21));
-        g.fillRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80); //30
-        g.setColor(Color.white);
-        g.drawRect(50, BOARD_WIDTH / 2 - 40, BOARD_WIDTH - 100, 80);
-
-        Font small = new Font("Helvetica", Font.BOLD, 18);
-        FontMetrics metr = this.getFontMetrics(small);
-        Font smalleano = new Font("Monospaced", Font.BOLD, 16); //Lo cambie a bold
-
-        g.setColor(Color.black);
-        g.setFont(small);
-        g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2 - 5);
-        g.setFont(smalleano);
-
-        scoring.sumPoints(player.getLives()*100);
-        g.drawString("Score: " + scoring.getScore(), (BOARD_WIDTH - metr.stringWidth("Score: " + scoring.getScore())) / 2, BOARD_WIDTH / 2 + 20);//esto
-        scoring.sumPoints(player.getLives()*100);
-
-        PanelPlayer panel = new PanelPlayer(scoring.getScore());
+        PanelPlayer panel = new PanelPlayer(scoring);
         while (!panel.isOk()){
             try {
                 Thread.sleep(500);
@@ -319,21 +162,95 @@ public class Board extends JPanel implements Runnable, Commons {
         HighScore.run(panel.getScoreData());
     }
 
-    public void drawLevelPass(){
+    public void animationCycle() {
 
-        Graphics g = this.getGraphics();
+        // player
+        player.act();
 
-        Font small = new Font("Helvetica", Font.BOLD, 18);
-        FontMetrics metr = this.getFontMetrics(small);
+        // shot
+        shotLife();
 
-        g.setColor(Color.white);
-        g.setFont(small);
-        g.drawString("Level Passed! :)", (BOARD_WIDTH - metr.stringWidth("Level Passed! :)")) / 2, BOARD_WIDTH / 2 - 5);
+        // aliens
+        alienLife();
+
+        //Bombs
+        bombsFunction();
+        //UFO
+        ufoAct();
+
+        //PowerUps
+        hasPowerUps();
+
+        canPassLevel();
+        sumPoints();
+        lives();
 
     }
 
-    public void animationCycle() {
+    @Override
+    public void run() {
 
+        long beforeTime, timeDiff, sleep;
+
+        UfoTimer = System.currentTimeMillis();
+        beforeTime = System.currentTimeMillis();
+
+        while (ingame) {
+
+            repaint();
+            animationCycle();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = delay - timeDiff;
+
+            if (sleep < 0) {
+                sleep = 2;
+            }
+
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                System.out.println("interrupted");
+            }
+
+            beforeTime = System.currentTimeMillis();
+        }
+
+        gameOver();
+    }
+
+    public void sumPoints(){
+        Iterator<Alien> it = aliens.iterator();
+        while (it.hasNext()) {
+            Alien alien = it.next();
+            if (alien.isDying() && !alien.isDead()) {
+                scoring += alien.getPoints();
+                System.out.println(scoring);
+            }
+        }
+
+        if (UFO.isDying()) {
+            scoring += UFO.getPoints();
+        }
+    }
+
+    public void lives(){
+        if (player.isDying()) {
+
+            if (player.hasLivesLeft()) {
+                player.reduceLives();
+                player.setDying(false);
+                player.initPlayer();
+                player.setVisible(true);
+            } else {
+            player.die();
+                message = "Game Over :(";
+                ingame = false;
+            }
+        }
+    }
+
+    public void ufoAct(){
         long timing = System.currentTimeMillis() - UfoTimer;
 
         if(random == 1){
@@ -352,6 +269,9 @@ public class Board extends JPanel implements Runnable, Commons {
             random = 0;
             UFO.die();
         }
+    }
+
+    public void canPassLevel(){
 
         Iterator alin = aliens.iterator();
         int counter = 0;
@@ -382,11 +302,54 @@ public class Board extends JPanel implements Runnable, Commons {
                 message = "Game won!";
             }
         }
+    }
 
-        // player
-        player.act();
+    public void hasPowerUps(){
+        if (shotCounter == 4) {                                          //DESDE ACA
+            shotCounter = 0;
+            PowerUp powerUp = new PowerUp();
+            player.setPowerUp(powerUp);
+            System.out.println(powerUp.getName());
+            if (powerUp.getName().equals("Immunity")) {
+                immunity = true;
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        immunity = false;
+                        player.setPowerUp(null);
+                    }
+                };
+                timer.schedule(task, (int)(Math.random()*5000)+3000);
 
-        // shot
+            } else if (powerUp.getName().equals("Double Damage")) {
+                doubleDamage = true;
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        doubleDamage = false;
+                        player.setPowerUp(null);
+                    }
+                };
+                timer.schedule(task, (int)(Math.random()*5000)+3000);
+
+            } else if (powerUp.getName().equals("Freeze")) {
+                freeze = true;
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        freeze = false;
+                        player.setPowerUp(null);
+                    }
+                };
+                timer.schedule(task, (int)(Math.random()*5000)+3000);
+            }
+        }
+        if(player.getPowerUp() != null) {
+            shotCounter = 0;
+        }
+    }
+
+    public void shotLife(){
         if (shot.isVisible()) {
 
             int shotX = shot.getX();
@@ -457,9 +420,9 @@ public class Board extends JPanel implements Runnable, Commons {
                 shot2.setY(y);
             }
         }
+    }
 
-        // aliens
-
+    public void alienLife(){
         for (Alien alien : aliens) {
 
             int x = alien.getX();
@@ -507,14 +470,17 @@ public class Board extends JPanel implements Runnable, Commons {
                     message = "Invasion!";
                 }
 
-                if(!freeze) {
-                    alien.act(direction);
-                }
                 if(freeze){
                     alien.act(0);
                 }
+                else{
+                    alien.act(direction);
+                }
             }
         }
+    }
+
+    public void bombsFunction(){
 
         Random generator = new Random();
         for (Iterator<Alien> iterator = aliens.iterator(); iterator.hasNext(); ) {
@@ -531,7 +497,6 @@ public class Board extends JPanel implements Runnable, Commons {
             int shot2X = shot2.getX();
             int shot2Y = shot2.getY();
 
-            // bombs
             if (!freeze) {
                 if (shots == CHANCE && alien.isVisible() && b.isDestroyed()) {
 
@@ -575,6 +540,7 @@ public class Board extends JPanel implements Runnable, Commons {
             }
 
             for (Shield shield : shields) {
+
                 int shieldX = shield.getX();
                 int shieldY = shield.getY();
 
@@ -605,117 +571,8 @@ public class Board extends JPanel implements Runnable, Commons {
                     shot2.die();
                 }
             }
-        }
-
-        //PowerUps
-        if (shotCounter == 4) {                                          //DESDE ACA
-            shotCounter = 0;
-            PowerUp powerUp = new PowerUp();
-            player.setPowerUp(powerUp);
-            System.out.println(powerUp.getName());
-            if (powerUp.getName().equals("Immunity")) {
-                immunity = true;
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        immunity = false;
-                        player.setPowerUp(null);
-                    }
-                };
-                timer.schedule(task, (int)(Math.random()*5000)+3000);
-
-            } else if (powerUp.getName().equals("Double Damage")) {
-                doubleDamage = true;
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        doubleDamage = false;
-                        player.setPowerUp(null);
-                    }
-                };
-                timer.schedule(task, (int)(Math.random()*5000)+3000);
-
-            } else if (powerUp.getName().equals("Freeze")) {
-                freeze = true;
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        freeze = false;
-                        player.setPowerUp(null);
-                    }
-                };
-                timer.schedule(task, (int)(Math.random()*5000)+3000);
-            }
-        }
-        if(player.getPowerUp() != null) {
-            shotCounter = 0;
-        }
-
-    }
-
-    @Override
-    public void run() {
-
-        long beforeTime, timeDiff, sleep;
-
-        UfoTimer = System.currentTimeMillis();
-        beforeTime = System.currentTimeMillis();
-
-        while (ingame) {
-
-            repaint();
-            animationCycle();
-
-            timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = delay - timeDiff;
-
-            if (sleep < 0) {
-                sleep = 2;
-            }
-
-            try {
-                Thread.sleep(sleep);
-            } catch (InterruptedException e) {
-                System.out.println("interrupted");
-            }
-
-            beforeTime = System.currentTimeMillis();
-        }
-
-        gameOver();
-    }
-
-    private class TAdapter extends KeyAdapter {
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-            player.keyReleased(e);
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-
-            player.keyPressed(e);
-
-            int x = player.getX();
-            int y = player.getY();
-
-            int key = e.getKeyCode();
 
 
-            if (key == KeyEvent.VK_SPACE) {
-
-                if (ingame) {
-                    if (!shot.isVisible() && !doubleDamage) {
-                        shot = new Shot(x+6, y);
-                    }
-                    if(doubleDamage && !shot2.isVisible()){
-                        shot = new Shot(x-5, y);
-                        shot2 = new Shot(x+18, y);
-                    }
-                }
-            }
         }
     }
 }
