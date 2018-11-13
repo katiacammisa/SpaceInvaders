@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class PanelStarter implements ActionListener, Commons{
+public class PanelStarter implements ActionListener, Commons {
 
     private JFrame frame;
     private JPanel buttonPane, fieldsPanel;

@@ -27,4 +27,3 @@ public class AlienType {
         return image;
     }
 }
-

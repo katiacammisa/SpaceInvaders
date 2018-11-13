@@ -49,7 +49,7 @@ public class Board extends Drawer implements Runnable, Commons {
     public Board() {
 
         player = new Player();
-        audio = new Audio("/sound/cancion.wav");
+        audio = new Audio("/sound/themeSong.wav");
         initBoard();
     }
 
@@ -136,6 +136,7 @@ public class Board extends Drawer implements Runnable, Commons {
     public void paintComponent(Graphics g){
         super.setIngame(ingame);
         super.setD(d);
+        super.setShot(shot);
         super.setDoubleDamage(doubleDamage);
         super.setImmunity(immunity);
         super.setFreeze(freeze);

@@ -20,15 +20,12 @@ public class Shot extends Sprite {
     }
 
     private void initShot(int x, int y) {
-
         ImageIcon ii = new ImageIcon(shotImg);
         setImage(ii.getImage());
 
         setX(x + H_SPACE);
         setY(y - V_SPACE);
     }
-
-
 
     public int getDelay() {
         return delay;
