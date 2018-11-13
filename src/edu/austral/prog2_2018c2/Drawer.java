@@ -21,9 +21,7 @@ public class Drawer extends JPanel implements Commons {
     private int scoring;
     private int levelCounter;
 
-    public Drawer(){
-
-    }
+    public Drawer(){}
 
     public void setAliens(ArrayList<Alien> aliens) {
         this.aliens = aliens;

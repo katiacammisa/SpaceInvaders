@@ -1,6 +1,7 @@
 package edu.austral.prog2_2018c2;
 
 import javax.swing.ImageIcon;
+import java.awt.event.KeyEvent;
 
 public class Shot extends Sprite {
 
@@ -32,4 +33,5 @@ public class Shot extends Sprite {
     public int getDelay() {
         return delay;
     }
+
 }

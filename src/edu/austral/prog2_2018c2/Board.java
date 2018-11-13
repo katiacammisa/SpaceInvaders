@@ -60,7 +60,7 @@ public class Board extends Drawer implements Runnable, Commons {
         setBackground(Color.black);
 
         gameInit();
-        addKeyListener(new TAdapter(player, shot, shot2, ingame, doubleDamage));
+        addKeyListener(new TAdapter(this));
         setDoubleBuffered(true);
     }
 
@@ -124,22 +124,23 @@ public class Board extends Drawer implements Runnable, Commons {
         random = 0;
         audio.play();
 
-        setAliens(aliens);
-        setPlayer(player);
-        setShields(shields);
-        setShot(shot);
-        setShot2(shot2);
-        setUFO(UFO);
+        super.setAliens(aliens);
+        super.setPlayer(player);
+        super.setShields(shields);
+        super.setShot(shot);
+        super.setShot2(shot2);
+        super.setUFO(UFO);
     }
 
+    @Override
     public void paintComponent(Graphics g){
-        setIngame(ingame);
-        setD(d);
-        setDoubleDamage(doubleDamage);
-        setImmunity(immunity);
-        setFreeze(freeze);
-        setLevelCounter(levelCounter);
-        setScoring(scoring);
+        super.setIngame(ingame);
+        super.setD(d);
+        super.setDoubleDamage(doubleDamage);
+        super.setImmunity(immunity);
+        super.setFreeze(freeze);
+        super.setLevelCounter(levelCounter);
+        super.setScoring(scoring);
         super.paintComponent(g);
     }
 
@@ -574,5 +575,57 @@ public class Board extends Drawer implements Runnable, Commons {
 
 
         }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    @Override
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Shot getShot() {
+        return shot;
+    }
+
+    @Override
+    public void setShot(Shot shot) {
+        this.shot = shot;
+    }
+
+    public Shot getShot2() {
+        return shot2;
+    }
+
+    @Override
+    public void setShot2(Shot shot2) {
+        this.shot2 = shot2;
+    }
+
+    public Alien getUFO() {
+        return UFO;
+    }
+
+    @Override
+    public void setUFO(Alien UFO) {
+        this.UFO = UFO;
+    }
+
+    public boolean isDoubleDamage() {
+        return doubleDamage;
+    }
+
+    public boolean isImmunity() {
+        return immunity;
+    }
+
+    public boolean isFreeze() {
+        return freeze;
+    }
+
+    public boolean isIngame() {
+        return ingame;
     }
 }
