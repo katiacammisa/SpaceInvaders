@@ -46,7 +46,7 @@ public class Board extends Drawer implements Runnable, Commons {
 
     private Thread animator;
 
-    public Board() {
+    public Board() { //hola
 
         player = new Player();
         audio = new Audio("/sound/cancion.wav");
