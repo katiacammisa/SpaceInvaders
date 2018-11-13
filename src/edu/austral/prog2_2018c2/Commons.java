@@ -1,6 +1,6 @@
 package edu.austral.prog2_2018c2;
 
-public interface Commons {
+public interface Commons { //hola
     public static final int BOARD_WIDTH = 358;
     public static final int BOARD_HEIGHT = 390;//350
     public static final int GROUND = 330;//290

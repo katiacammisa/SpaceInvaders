@@ -2,7 +2,7 @@ package edu.austral.prog2_2018c2;
 
 import java.awt.Image;
 
-public class Sprite {
+public class Sprite { //hola
 
     private boolean visible;
     private Image image;
