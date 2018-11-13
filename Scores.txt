@@ -1,10 +1,10 @@
+Rochi: 2270
+Rochi: 2155
+Pl: 1270
+Player: 1260
 Ale: 1000
 Rochi: 910
 maiu: 700
+Player: 580
+Player: 550
 Katy: 430
-Player: 280
-maiu: 260
-katy: 50
-Player: 40
-katy: 40
-katy: 40

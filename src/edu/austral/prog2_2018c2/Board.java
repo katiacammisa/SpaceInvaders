@@ -127,8 +127,6 @@ public class Board extends Drawer implements Runnable, Commons {
         super.setAliens(aliens);
         super.setPlayer(player);
         super.setShields(shields);
-        super.setShot(shot);
-        super.setShot2(shot2);
         super.setUFO(UFO);
     }
 
@@ -137,6 +135,7 @@ public class Board extends Drawer implements Runnable, Commons {
         super.setIngame(ingame);
         super.setD(d);
         super.setShot(shot);
+        super.setShot2(shot2);
         super.setDoubleDamage(doubleDamage);
         super.setImmunity(immunity);
         super.setFreeze(freeze);
@@ -177,6 +176,7 @@ public class Board extends Drawer implements Runnable, Commons {
 
         //Bombs
         bombsFunction();
+
         //UFO
         ufoAct();
 

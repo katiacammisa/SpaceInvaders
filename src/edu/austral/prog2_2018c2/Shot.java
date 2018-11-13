@@ -1,7 +1,6 @@
 package edu.austral.prog2_2018c2;
 
 import javax.swing.ImageIcon;
-import java.awt.event.KeyEvent;
 
 public class Shot extends Sprite {
 
@@ -10,9 +9,7 @@ public class Shot extends Sprite {
     private final int V_SPACE = 1;
     private int delay = 7;
 
-    public Shot() {
-
-    }
+    public Shot() {}
 
     public Shot(int x, int y) {
 
@@ -22,6 +19,7 @@ public class Shot extends Sprite {
     private void initShot(int x, int y) {
         ImageIcon ii = new ImageIcon(shotImg);
         setImage(ii.getImage());
+        setVisible(true);
 
         setX(x + H_SPACE);
         setY(y - V_SPACE);
