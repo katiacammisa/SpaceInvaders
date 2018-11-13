@@ -15,12 +15,11 @@ public class HighScore {
 
         public static void run(ScoreData newScoreData) {
 
-
-
             try {
 
                 List<ScoreData> scoring = read();
                 scoring.add(newScoreData);
+
 
                 scoring.sort(new Comparator<ScoreData>() {
                     @Override
