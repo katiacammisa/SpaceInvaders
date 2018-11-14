@@ -2,6 +2,10 @@ package edu.austral.prog2_2018c2;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class PanelStarter implements ActionListener, Commons {
@@ -12,7 +16,7 @@ public class PanelStarter implements ActionListener, Commons {
     private JButton highScore;
     private boolean active;
 
-    public PanelStarter(){
+    public PanelStarter() {
 
         frame = new JFrame("Space Invaders");
         buttonPanel = new JPanel();
@@ -41,11 +45,10 @@ public class PanelStarter implements ActionListener, Commons {
         start.addActionListener(this);
         highScore.addActionListener(this);
     }
+
     public static void main(String args[]) {
         new PanelStarter();
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -55,8 +58,8 @@ public class PanelStarter implements ActionListener, Commons {
             active = true;
         }
 
-        if(e.getSource() == highScore){
-           PanelHighScores hs = new PanelHighScores();
+        if (e.getSource() == highScore) {
+            PanelHighScores hs = new PanelHighScores();
         }
     }
 
@@ -64,3 +67,4 @@ public class PanelStarter implements ActionListener, Commons {
         return active;
     }
 }
+

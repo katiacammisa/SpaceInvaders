@@ -71,14 +71,16 @@ public class PanelHighScores implements ActionListener, Commons {
             scoring.add(thisLine);
         }
         text.setText(toString());
+        text.setHorizontalAlignment(SwingConstants.CENTER);
         br.close();
     }
 
     public String toString(){
-        String result = "";
+        String result = "<html><font color='white'>";
         for (int i = 0; i < scoring.size() ; i++) {
-            result += (i+1) + ") " + scoring.get(i) + "\n";
+            result += (i+1) + ") " + scoring.get(i) + "<br/>";
         }
+        result += "</font></html>";
 
         return result;
     }
