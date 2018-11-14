@@ -7,8 +7,8 @@ public class PanelPlayer implements ActionListener {
 
         private JFrame frame;
         private JPanel buttonPane, fieldsPanel;
-        private JLabel cash;
-        private JTextField cashField;
+        private JLabel label;
+        private JTextField textInField;
         private JButton ok;
         private int score;
         private boolean isOk;
@@ -21,15 +21,15 @@ public class PanelPlayer implements ActionListener {
             frame = new JFrame("");
             buttonPane = new JPanel();
             fieldsPanel = new JPanel();
-            cash = new JLabel("Insert your name:");
-            cashField = new JTextField("Player");
+            label = new JLabel("Insert your name:");
+            textInField = new JTextField("Player");
             ok = new JButton("OK");
 
             fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
             buttonPane.setLayout(new FlowLayout());
 
-            fieldsPanel.add(cash);
-            fieldsPanel.add(cashField);
+            fieldsPanel.add(label);
+            fieldsPanel.add(textInField);
             buttonPane.add(ok);
             frame.add(fieldsPanel, BorderLayout.PAGE_START);
             frame.add(buttonPane, BorderLayout.PAGE_END);
@@ -45,7 +45,7 @@ public class PanelPlayer implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         frame.setVisible(false);
-        scoreData = new ScoreData(cashField.getText(), score);
+        scoreData = new ScoreData(textInField.getText(), score);
         isOk = true;
     }
 

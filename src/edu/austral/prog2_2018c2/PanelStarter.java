@@ -7,7 +7,7 @@ import javax.swing.*;
 public class PanelStarter implements ActionListener, Commons {
 
     private JFrame frame;
-    private JPanel buttonPane, fieldsPanel;
+    private JPanel buttonPanel, fieldsPanel;
     private JButton start;
     private JButton highScore;
     private boolean active;
@@ -15,18 +15,22 @@ public class PanelStarter implements ActionListener, Commons {
     public PanelStarter(){
 
         frame = new JFrame("Space Invaders");
-        buttonPane = new JPanel();
+        buttonPanel = new JPanel();
         fieldsPanel = new JPanel();
         start = new JButton("Start Game");
+        start.setPreferredSize(new Dimension(600, 30));
         highScore = new JButton("View HighScores");
+        highScore.setPreferredSize(new Dimension(600, 30));
 
-        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, 1));
-        buttonPane.setLayout(new FlowLayout());
+//        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, 2));
+//        buttonPanel.setLayout(new FlowLayout());
+//        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, 1));
+//        buttonPanel.setLayout(new FlowLayout());
 
-        buttonPane.add(start);
-        fieldsPanel.add(highScore);
+        fieldsPanel.add(start);
+        buttonPanel.add(highScore);
+        frame.add(buttonPanel, BorderLayout.PAGE_END);
         frame.add(fieldsPanel, BorderLayout.PAGE_START);
-        frame.add(buttonPane, BorderLayout.PAGE_END);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

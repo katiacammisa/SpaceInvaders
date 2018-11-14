@@ -142,6 +142,7 @@ public class Board extends Drawer implements Runnable, Commons {
         super.setLevelCounter(levelCounter);
         super.setScoring(scoring);
         super.paintComponent(g);
+
     }
 
     public void gameOver(){
