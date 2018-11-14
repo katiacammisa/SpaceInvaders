@@ -4,30 +4,22 @@ package edu.austral.prog2_2018c2;
     import java.io.*;
     import java.io.InputStream;
     import java.io.InputStreamReader;
-    import java.util.ArrayList;
-    import java.util.Collections;
-    import java.util.Comparator;
-    import java.util.List;
+    import java.util.*;
 
 
 public class HighScore {
 
         public static final String FILENAME = "Scores.txt";
+        private static List<ScoreData> scoring;
 
         public static void run(ScoreData newScoreData) {
 
             try {
 
-                List<ScoreData> scoring = read();
+                scoring = read();
                 scoring.add(newScoreData);
 
-
-                scoring.sort(new Comparator<ScoreData>() {
-                    @Override
-                    public int compare(ScoreData o1, ScoreData o2) {
-                        return Integer.compare(o2.getScore(), o1.getScore());
-                    }
-                });
+                sort();
 
                 write(scoring);
 
@@ -54,6 +46,15 @@ public class HighScore {
             br.close();
 
             return scoring;
+        }
+
+        public static void sort() {
+            scoring.sort(new Comparator<ScoreData>() {
+                @Override
+                public int compare(ScoreData o1, ScoreData o2) {
+                    return Integer.compare(o2.getScore(), o1.getScore());
+                }
+            });
         }
 
         public static void write(List<ScoreData> scoring) throws IOException {

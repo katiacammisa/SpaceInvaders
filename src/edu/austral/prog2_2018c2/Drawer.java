@@ -163,7 +163,6 @@ public class Drawer extends JPanel implements Commons {
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString("Level Passed! :)", (BOARD_WIDTH - metr.stringWidth("Level Passed! :)")) / 2, BOARD_WIDTH / 2 - 5);
-
     }
 
     public void gameOver(Graphics g, int scoring, String message){

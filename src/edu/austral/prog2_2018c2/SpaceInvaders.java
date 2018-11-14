@@ -7,8 +7,7 @@ public class SpaceInvaders extends JFrame implements Commons {
 
     public SpaceInvaders() {
 
-
-            initUI();
+        initUI();
 
     }
 
@@ -23,6 +22,16 @@ public class SpaceInvaders extends JFrame implements Commons {
     }
 
     public static void main(String[] args) {
+        start();
+
+        EventQueue.invokeLater(() -> {
+            SpaceInvaders ex = new SpaceInvaders();
+            ex.setVisible(true);
+        });
+
+    }
+
+    public static void start(){
         PanelStarter start = new PanelStarter();
         while (!start.isActive()){
             try {
@@ -31,11 +40,5 @@ public class SpaceInvaders extends JFrame implements Commons {
                 e.printStackTrace();
             }
         }
-
-        EventQueue.invokeLater(() -> {
-            SpaceInvaders ex = new SpaceInvaders();
-            ex.setVisible(true);
-        });
-
     }
 }

@@ -5,6 +5,6 @@ Pl: 1270
 Player: 1260
 Ale: 1000
 Rochi: 910
-holis: 720
-maiu: 700
-Player: 580
+Player: 800
+Katy: 180
+Katy: 50

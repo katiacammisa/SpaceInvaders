@@ -47,6 +47,7 @@ public class PanelPlayer implements ActionListener {
         frame.setVisible(false);
         scoreData = new ScoreData(textInField.getText(), score);
         isOk = true;
+        //SpaceInvaders.start();
     }
 
     public boolean isOk(){
