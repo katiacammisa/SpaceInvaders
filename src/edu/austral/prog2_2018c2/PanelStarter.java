@@ -20,7 +20,7 @@ public class PanelStarter implements ActionListener, Commons {
         start = new JButton("Start Game");
         highScore = new JButton("View HighScores");
 
-        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, 2));
+        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, 1));
         buttonPane.setLayout(new FlowLayout());
 
         buttonPane.add(start);
@@ -32,7 +32,10 @@ public class PanelStarter implements ActionListener, Commons {
         frame.setVisible(true);
         frame.setBounds(542, 230, BOARD_WIDTH, BOARD_HEIGHT);
 
+        frame.getContentPane().setBackground(Color.black);
+
         start.addActionListener(this);
+        highScore.addActionListener(this);
     }
     public static void main(String args[]) {
         new PanelStarter();
@@ -42,8 +45,15 @@ public class PanelStarter implements ActionListener, Commons {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.setVisible(false);
-        active = true;
+
+        if (e.getSource() == start) {
+            frame.setVisible(false);
+            active = true;
+        }
+
+        if(e.getSource() == highScore){
+           PanelHighScores hs = new PanelHighScores();
+        }
     }
 
     public boolean isActive() {
