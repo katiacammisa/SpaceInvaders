@@ -162,7 +162,6 @@ public class Board extends Drawer implements Runnable, Commons {
             }
         }
         HighScore.run(panel.getScoreData());
-        EndingPanel endingPanel = new EndingPanel(new SpaceInvaders());
     }
 
     public void animationCycle() {

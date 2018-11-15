@@ -28,7 +28,6 @@ public class HighScore {
             } catch (IOException e) {
 
                 e.printStackTrace();
-
             }
 
         }
