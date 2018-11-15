@@ -162,6 +162,7 @@ public class Board extends Drawer implements Runnable, Commons {
             }
         }
         HighScore.run(panel.getScoreData());
+        EndingPanel endingPanel = new EndingPanel(new SpaceInvaders());
     }
 
     public void animationCycle() {
@@ -289,7 +290,7 @@ public class Board extends Drawer implements Runnable, Commons {
             levelCounter++;
             if (levelCounter <= levels) {
                 drawLevelPass();
-                delayInSeconds(2);
+                delayInSeconds(1);
                 int count = 0;
                 for (int i = 0; i < shieldAmount; i++) {
                     if (shields.get(i).isVisible()) {

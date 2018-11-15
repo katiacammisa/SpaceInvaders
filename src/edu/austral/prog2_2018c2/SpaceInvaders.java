@@ -2,8 +2,14 @@ package edu.austral.prog2_2018c2;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
 
 public class SpaceInvaders extends JFrame implements Commons {
+
+    private static PanelStarter start = new PanelStarter();
+    private static Board board;
+    private static EndingPanel endingPanel;
 
     public SpaceInvaders() {
 
@@ -32,7 +38,6 @@ public class SpaceInvaders extends JFrame implements Commons {
     }
 
     public static void start(){
-        PanelStarter start = new PanelStarter();
         while (!start.isActive()){
             try {
                 Thread.sleep(500);
@@ -40,5 +45,14 @@ public class SpaceInvaders extends JFrame implements Commons {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void restart() {
+
+        board = new Board();
+        start = new PanelStarter();
+        add(start);
+        start.requestFocus();
+        revalidate();
     }
 }

@@ -7,4 +7,4 @@ Ale: 1000
 Rochi: 910
 Player: 800
 Katy: 180
-Katy: 50
+Player: 80
