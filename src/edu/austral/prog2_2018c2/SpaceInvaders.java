@@ -10,7 +10,6 @@ public class SpaceInvaders extends JFrame implements Commons {
     public SpaceInvaders() {
 
         initUI();
-
     }
 
     private void initUI() {
@@ -20,7 +19,6 @@ public class SpaceInvaders extends JFrame implements Commons {
         setSize(BOARD_WIDTH, BOARD_HEIGHT);
         setLocationRelativeTo(null);
         setResizable(false);
-
     }
 
     public static void main(String[] args) {
@@ -30,7 +28,6 @@ public class SpaceInvaders extends JFrame implements Commons {
             SpaceInvaders ex = new SpaceInvaders();
             ex.setVisible(true);
         });
-
     }
 
     public static void start(){

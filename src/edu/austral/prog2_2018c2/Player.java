@@ -40,18 +40,6 @@ public class Player extends Sprite implements Commons {
         setY(START_Y);
     }
 
-    public void initPlayerDead() {
-
-        ImageIcon ii = new ImageIcon(playerImg);
-
-        width = ii.getImage().getWidth(null);
-
-        setImage(ii.getImage());
-        setX(getX());
-        setY(getY());
-    }
-
-
     public void setPlayerImg(String playerImg) {
         this.playerImg = playerImg;
     }

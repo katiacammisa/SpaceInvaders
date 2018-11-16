@@ -21,7 +21,7 @@ public class Sprite {
         visible = false;
     }
 
-    public boolean isVisible() {
+    public boolean  isVisible() {
 
         return visible;
     }

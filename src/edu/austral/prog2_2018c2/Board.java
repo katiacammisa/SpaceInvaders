@@ -18,7 +18,7 @@ public class Board extends Drawer implements Runnable, Commons {
     private Shot shot2;
     private Alien UFO;
     private Timer timer = new Timer();
-    private Audio audio;
+    //private Audio audio;
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 45;
@@ -49,7 +49,7 @@ public class Board extends Drawer implements Runnable, Commons {
     public Board() {
 
         player = new Player();
-        audio = new Audio("/sound/themeSong.wav");
+        //audio = new Audio("/sound/themeSong.wav");
         initBoard();
     }
 
@@ -122,7 +122,7 @@ public class Board extends Drawer implements Runnable, Commons {
         }
 
         random = 0;
-        audio.play();
+        //audio.play();
 
         super.setAliens(aliens);
         super.setPlayer(player);

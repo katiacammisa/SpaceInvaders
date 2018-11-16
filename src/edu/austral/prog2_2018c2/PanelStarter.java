@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class PanelStarter extends JPanel implements ActionListener, Commons {
+public class PanelStarter implements ActionListener, Commons {
 
     private JFrame frame;
     private JPanel buttonPanel, fieldsPanel;
@@ -67,4 +67,3 @@ public class PanelStarter extends JPanel implements ActionListener, Commons {
         return active;
     }
 }
-
